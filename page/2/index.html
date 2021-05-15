@@ -152,8 +152,252 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-debian10系统原本为64位系统下如何配置32位编译and运行环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/25/debian10%E7%B3%BB%E7%BB%9F%E5%8E%9F%E6%9C%AC%E4%B8%BA64%E4%BD%8D%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE32%E4%BD%8D%E7%BC%96%E8%AF%91and%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/">debian10系统原本为64位系统，如何配置32位编译and运行环境</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/25/debian10%E7%B3%BB%E7%BB%9F%E5%8E%9F%E6%9C%AC%E4%B8%BA64%E4%BD%8D%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE32%E4%BD%8D%E7%BC%96%E8%AF%91and%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/" class="archive-article-date">
+  	<time datetime="2020-04-25T02:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="debian10系统原本为64位系统，如何配置32位编译and运行环境"><a href="#debian10系统原本为64位系统，如何配置32位编译and运行环境" class="headerlink" title="debian10系统原本为64位系统，如何配置32位编译and运行环境"></a>debian10系统原本为64位系统，如何配置32位编译and运行环境</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>原本安装的是debian10的64位系统，但是因为有些第三方程序是32位的，需要在这个系统上编译运行，那么需要配置一下必要的环境</p>
+<h2 id="当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境"><a href="#当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境" class="headerlink" title="当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境"></a>当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境</h2><p>一般来说，编译32位程序时，如果出现以下报错,可以认为没有配置32位编译or运行环境</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error: bits/libc-header-start.h: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>运行32位程序时，如果出现以下报错，也可以认为没有配置32位编译or运行环境</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//明明有执行程序test（32位的），但是执行./test的时候却报错</span></span><br><span class="line">test： </span><br><span class="line">     no such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>出现以上两种情况的任何一个时，一般可以判断时由于64位debian系统下，没有配置32位程序的编译or运行环境，需要执行以下两个步骤</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="一、执行sudo-apt-get-install-gcc-multilib"><a href="#一、执行sudo-apt-get-install-gcc-multilib" class="headerlink" title="一、执行sudo apt-get install gcc-multilib"></a>一、执行sudo apt-get install gcc-multilib</h3><p>安装gcc-multilib</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装gcc-multilib</span></span><br><span class="line">sudo apt-get install gcc-multilib</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、执行sudo-apt-get-install-g-multilib"><a href="#二、执行sudo-apt-get-install-g-multilib" class="headerlink" title="二、执行sudo apt-get install g++-multilib"></a>二、执行sudo apt-get install g++-multilib</h3><p>安装g++-multilib</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装g++-multilib</span></span><br><span class="line">sudo apt-get install g++-multilib</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>因为从官网直接下载下来的debian10的64位安装镜像在安装完成后，原始的debian系统是不支持32位程序运行的，所以需要对环境进行配置，所以做个记录，免得下次忘记了</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/25/debian10%E7%B3%BB%E7%BB%9F%E5%8E%9F%E6%9C%AC%E4%B8%BA64%E4%BD%8D%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE32%E4%BD%8D%E7%BC%96%E8%AF%91and%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-openvpn源码交叉编译" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/11/openvpn%E6%BA%90%E7%A0%81%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/">openvpn交叉编译</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/11/openvpn%E6%BA%90%E7%A0%81%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" class="archive-article-date">
+  	<time datetime="2020-04-11T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="openvpn交叉编译"><a href="#openvpn交叉编译" class="headerlink" title="openvpn交叉编译"></a>openvpn交叉编译</h1><h1 id="需要源码交叉编译openvpn的操作步骤"><a href="#需要源码交叉编译openvpn的操作步骤" class="headerlink" title="需要源码交叉编译openvpn的操作步骤"></a>需要源码交叉编译openvpn的操作步骤</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>因为某些原因，只能选择交叉编译，当前平台是64位的，但是目标平台是32位的，目标平台又禁止了apt-get等相关操作，所以必须要源码交叉编译openvpn及其相关依赖库。因为之前交叉编译的时候，大多第三方库都是有现成的CMaKeLists.txt或者是Makefile，所以编译起来倒是也方便，但是，openvpn它只有configure文件，它是需要执行./configure成功设置好各种环境变量配置以后，才能生成Makefile的。于是，一开始踩了很多坑，在此做一个记录……</p>
+<h2 id="一、预先配置的环境变量"><a href="#一、预先配置的环境变量" class="headerlink" title="一、预先配置的环境变量"></a>一、预先配置的环境变量</h2><p>export CC=指定交叉编译时gcc编译版本<br>export CXX=指定交叉编译时g++编译版本</p>
+<h2 id="二、编译openssl"><a href="#二、编译openssl" class="headerlink" title="二、编译openssl"></a>二、编译openssl</h2><p>完整编译选项配置如下：<br>setarch i386 ./config -m32 –prefix=/home/muhan/openssl/ –openssldir=/home/muhan/openssl/ -Wl,-rpath,/usr/local/openssl/lib shared<br>详细选项含义如下：<br>配置-m32 指定编译32位的库<br>配置–prefix 指定openssl的安装目录<br>配置–openssldir 指定openssl的目录<br>配置shared关键字 指定编译时生成动态库（libssl.so/libcrypto.so及其相关软连接）</p>
+<p>然后再make &amp;&amp; make install 即可</p>
+<h2 id="三、编译安装lzo"><a href="#三、编译安装lzo" class="headerlink" title="三、编译安装lzo"></a>三、编译安装lzo</h2><p>完整编译选项配置如下：<br>./configure –enable-shared –prefix=/home/muhan/lzo/usr –with-sysroot=指定交叉编译时的sysroot的路径名<br>详细选项含义如下：<br>配置–enable-shared 指定编译时生成动态库（liblzo2.so及其相关软连接）<br>配置–prefix 指定lzo安装路径<br>配置–with-sysroot 指定交叉编译时的sysroot</p>
+<p>然后再make &amp;&amp; make install 即可</p>
+<h2 id="四、编译安装openvpn"><a href="#四、编译安装openvpn" class="headerlink" title="四、编译安装openvpn"></a>四、编译安装openvpn</h2><p>完整编译选项配置如下：<br>./configure CC=指定交叉编译时gcc的那个版本 –prefix=/home/muhan/openvpn/ LZO_CFLAGS=”-I/home/muhan/lzo/usr/include” LZO_LIBS=”-L/home/muhan/lzo/usr/lib -llzo2” OPENSSL_CFLAGS=”-I/home/muhan/openssl/include” OPENSSL_LIBS=”-L/home/muhan/openssl/lib -lssl -lcrypto” –disable-plugin-auth-pam<br>详细选项含义如下：<br>配置CC的版本<br>配置–prefix 指定openvpn安装目录<br>配置LZO_CFLAGS 指定lzo的头文件路径<br>配置LZO_LIBS 指定lzo的库文件路径及所链接的库<br>配置OPENSSL_CFLAGS 指定openssl的头文件路径<br>配置OPENSSL_LIBS 指定openssl的库文件路径及所链接的库<br>配置–disable-plugin-auth-pam 禁掉pam模块</p>
+<p>然后再make &amp;&amp; make install 即可</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>当编译第三方库的时候，如果没有CMakeLists.txt，也没有Makefile，只有config或者configure，那么需要先了解编译选项</p>
+<p>执行./config –help 或者 ./configure –help 来查看当前支持的编译选项<br>然后根据提示配置一下我们需要指定的选项，比如自己指定的openssl的版本的库和头文件路径名，比如CC的版本，比如安装路径等等<br>(当然，如果不需要额外配置这些东西的话，直接走默认配置的话，那么直接执行./config 或者 ./configure 就行)</p>
+<p>然后在生成Makefile之后，再make &amp;&amp; make install 即可</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/11/openvpn%E6%BA%90%E7%A0%81%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ifconfig指令配置网卡信息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/29/ifconfig%E6%8C%87%E4%BB%A4%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1%E4%BF%A1%E6%81%AF/">ifconfig指令配置网卡信息</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/29/ifconfig%E6%8C%87%E4%BB%A4%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1%E4%BF%A1%E6%81%AF/" class="archive-article-date">
+  	<time datetime="2020-03-29T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ifconfig指令配置网卡信息"><a href="#ifconfig指令配置网卡信息" class="headerlink" title="ifconfig指令配置网卡信息"></a>ifconfig指令配置网卡信息</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>linux/unix系统下，输入ifconfig指令，发现只有lo本地回环，没有网卡信息，为了能够正常上网，需要配置一下网卡信息</p>
+<p>当输入指令</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifconfig eth0 <span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span></span><br><span class="line">(可以自行设置ip地址）</span><br></pre></td></tr></table></figure>
+
+<p>会提示报错信息</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SIOCSIFADDR: No such device</span><br><span class="line"><span class="attr">eth0</span>: ERROR <span class="keyword">while</span> getting interface flags: No such device</span><br></pre></td></tr></table></figure>
+
+<p>此时，我们会发现设置网卡eth0失败了，提示我们没有这个网卡。那么，很有可能，我们的网卡不叫“eth0”这个名字，而不是我们真的没有网卡。</p>
+<h2 id="ifconfig-a"><a href="#ifconfig-a" class="headerlink" title="ifconfig -a"></a>ifconfig -a</h2><p>输入指令</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig -a</span><br></pre></td></tr></table></figure>
+
+<p>此时，我们可以看到系统列出来我们所有的网卡名，如下图：</p>
+<p><img src="/assets/blogImg/ifconfig-a.jpg" alt="ifconfig-a指令显示所有网卡"></p>
+<h2 id="配置网卡的ip"><a href="#配置网卡的ip" class="headerlink" title="配置网卡的ip"></a>配置网卡的ip</h2><p>接下来，我们发现自己系统的网卡果然没有eth0这个网卡名，但是有en0，所以，接下来我们设置来配置这个网卡的ip</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifconfig en0 <span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span></span><br><span class="line">(可以自行设置ip地址）</span><br></pre></td></tr></table></figure>
+<p>然后回车后，就发现设置ip成功啦～</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一般情况下，因为我们常见的linux下的网卡名字都是eth0，所以习惯性的就直接配置eth0的ip，但是有的系统并不是用eth0当网卡名，所以还是要先输入ifconfig -a指令，来查看一下我们当前的系统下，网卡的名字都是什么，然后再去配置ip</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/29/ifconfig%E6%8C%87%E4%BB%A4%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1%E4%BF%A1%E6%81%AF/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-关于交叉编译01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/29/%E5%85%B3%E4%BA%8E%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%9101/">关于交叉编译01</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/29/%E5%85%B3%E4%BA%8E%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%9101/" class="archive-article-date">
+  	<time datetime="2020-03-29T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-29</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -195,67 +439,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/%E5%85%B3%E4%BA%8E%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%9101/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-关于本次博客搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="关于本次博客搭建"><a href="#关于本次博客搭建" class="headerlink" title="关于本次博客搭建"></a>关于本次博客搭建</h1><h1 id="记录一下本次搭建blog的过程"><a href="#记录一下本次搭建blog的过程" class="headerlink" title="记录一下本次搭建blog的过程"></a>记录一下本次搭建blog的过程</h1><p>因为感觉有博客就很有意思的亚子，所以这两天趁着台风天也没法出去玩，索性捣腾一下个人博客的搭建好了，本次只是记录了我这次搭建blog参考的视频教程，因为CodeSheep这位大佬的视频讲的真的好，mac系统下跟着他的视频一步一步走，就很顺理成章的搭建完成了呢～</p>
-<h2 id="本次mac搭建的时候，follow的视频教程"><a href="#本次mac搭建的时候，follow的视频教程" class="headerlink" title="本次mac搭建的时候，follow的视频教程"></a>本次mac搭建的时候，follow的视频教程</h2><p>视频链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av44544186/">https://www.bilibili.com/video/av44544186/</a></p>
-<p>只是有一点需要注意的：需要用root用户进行一系列操作<br>（一开始没有注意到，所以出来了一些报错信息，后来仔细一看，大佬用的是root用户进行的一系列操作）</p>
-<p>剩下的就是follow大佬的视频，一步一步慢慢走，看完这个视频，就可以在mac环境下搭建自己的个人博客啦～</p>
-<h2 id="在windows下搭建的时候，follow的网上的一个教程"><a href="#在windows下搭建的时候，follow的网上的一个教程" class="headerlink" title="在windows下搭建的时候，follow的网上的一个教程"></a>在windows下搭建的时候，follow的网上的一个教程</h2><p>教程链接：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/26625249">https://zhuanlan.zhihu.com/p/26625249</a></p>
-<p>因为还有一台windows的电脑，所以就也闲的无聊，就在windows上也搭建啦一下，其实和在mac上基本没有什么差别，只有2-3个极其个别的操作指令可能略有不同，不过follow这个教程一步步搭建，基本没有问题的～</p>
-<h2 id="关于主题，follow的开源项目"><a href="#关于主题，follow的开源项目" class="headerlink" title="关于主题，follow的开源项目"></a>关于主题，follow的开源项目</h2><p>因为搭建了blog之后，就找了一些主题，看了一些之后，还是选择了用CodeSheep大佬推荐的yilia主题，再次也非常感谢litten分享的开源主题</p>
-<p>主题链接：<a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia">https://github.com/litten/hexo-theme-yilia</a></p>
-<p>这套主题感觉也非常适合新手上手，操作非常友好，界面也很简洁，非常感谢大佬们的开源分享～</p>
-<h2 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h2><p>本次是记录在搭建个人博客的时候，查找到的特别好的学习资料，非常的感谢大佬们在网上的分享～</p>
-<p>台风天的时候，我们家猫咪在我的电脑旁边睡的安稳，我看着各个教程，写着算是第一篇不注水的博客，感觉也别有一番意思～</p>
-<p>blog里若有什么描述不当的bug，bug属于我，荣誉属于分享技术的大佬</p>
-<h2 id="睡觉毫无形象的小橘"><a href="#睡觉毫无形象的小橘" class="headerlink" title="睡觉毫无形象的小橘"></a>睡觉毫无形象的小橘</h2><p>小橘同学，你这睡姿真的毫无形象呀～<br><img src="/assets/blogImg/xiaoju_taifeng.jpg" alt="xiaoju_taifeng.jpg"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/%E5%85%B3%E4%BA%8E%E6%9C%AC%E6%AC%A1%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/29/%E5%85%B3%E4%BA%8E%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%9101/">展开全文 >></a>
         </p>
       
 
@@ -288,6 +472,21 @@
     <article id="post-单实例设计模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/12/%E5%8D%95%E5%AE%9E%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">单实例设计模式</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/12/%E5%8D%95%E5%AE%9E%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
+  	<time datetime="2020-01-12T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="单实例设计模式"><a href="#单实例设计模式" class="headerlink" title="单实例设计模式"></a>单实例设计模式</h1><h1 id="单实例设计模式-1"><a href="#单实例设计模式-1" class="headerlink" title="单实例设计模式"></a>单实例设计模式</h1><h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>单实例设计模式，是指让一个类只创建一个对象，为了保证这一点，将不会对外暴露new出来的接口对象，只提供一个实例供外部访问。</p>
@@ -309,7 +508,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/%E5%8D%95%E5%AE%9E%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/01/12/%E5%8D%95%E5%AE%9E%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">展开全文 >></a>
         </p>
       
 
@@ -339,19 +538,30 @@
 
 
   
-    <article id="post-将linux下源码文件直接放在windows下vs编译的时候的报错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-linux下查看编译的静态库和动态库是32位还是64位" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/15/linux%E4%B8%8B%E6%9F%A5%E7%9C%8B%E7%BC%96%E8%AF%91%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF32%E4%BD%8D%E8%BF%98%E6%98%AF64%E4%BD%8D/">linux下查看编译的静态库和动态库是32位还是64位</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/15/linux%E4%B8%8B%E6%9F%A5%E7%9C%8B%E7%BC%96%E8%AF%91%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF32%E4%BD%8D%E8%BF%98%E6%98%AF64%E4%BD%8D/" class="archive-article-date">
+  	<time datetime="2019-12-15T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-15</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared-identifier的奇怪报错"><a href="#将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared-identifier的奇怪报错" class="headerlink" title="将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared identifier的奇怪报错"></a>将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared identifier的奇怪报错</h1><h1 id="将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared-identifier的奇怪报错-1"><a href="#将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared-identifier的奇怪报错-1" class="headerlink" title="将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared identifier的奇怪报错"></a>将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared identifier的奇怪报错</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我的一个工程里的源文件就叫他a.cpp,在linux下可以正常的编译，由于工程需要移植到windos下，所以我把a.cpp源文件移动到windows下的工程里，然后编译，编译的时候，发现有两个特别诡异的报错，报错内容如下：</p>
-<p><img src="/assets/blogImg/copy_cpp_error.jpg" alt="直接将cpp从Linux下挪到windows下报错"></p>
-<p>更为奇怪的是，如果我在windows操作系统下，将a.cpp文件，用sublime.txt打开，然后再全选内容，拷贝到vs到工程里报错的a.cpp文件里，然后发现可以成功编译！</p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>经过一系列脑壳疼的排查，最终发现，这是因为，linux下和windows下的换行符不一样！！！<br>如果用sublime.txt把报错的源文件a.cpp的所有\n替换成windows下的\r\n,然后再保存文件，把保存修改的文件，挪到vs里直接编译，发现阔以了！！！</p>
-<p>vs是不支持把linux下的换行符主动转成windows下的换行符的！！！巨坑</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>后来，查看了网友将linux和windows换行符的区别，讲的特别好<br>链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/stpeace/article/details/45767245">https://blog.csdn.net/stpeace/article/details/45767245</a></p>
-<p>讲解的特别精彩的截图片段<br><img src="/assets/blogImg/huanhangfu.jpg" alt="linux与windows换行符的区别"></p>
-<h2 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h2><p>不得不说，像换行符这种巨坑的问题，排查起来简直特别特别坑……</p>
+        <h1 id="linux下查看编译的静态库和动态库是32位还是64位"><a href="#linux下查看编译的静态库和动态库是32位还是64位" class="headerlink" title="linux下查看编译的静态库和动态库是32位还是64位"></a>linux下查看编译的静态库和动态库是32位还是64位</h1><h1 id="linux下查看编译的静态库和动态库是32位还是64位-1"><a href="#linux下查看编译的静态库和动态库是32位还是64位-1" class="headerlink" title="linux下查看编译的静态库和动态库是32位还是64位"></a>linux下查看编译的静态库和动态库是32位还是64位</h1><p>有时候可能会需要交叉编译，所以需要知道平台上编译出来的版本到底是64位还是32位</p>
+<h2 id="file指令查看动态库是32位还是64位"><a href="#file指令查看动态库是32位还是64位" class="headerlink" title="file指令查看动态库是32位还是64位"></a>file指令查看动态库是32位还是64位</h2><p>如图：file libcurl.so 查看当前编译的libcurl.so是32位还是64位的<br><img src="/assets/blogImg/file_so.jpg" alt="file_so.jpg"></p>
+<h2 id="objdump-a指令查看静态库是32位还是64位的"><a href="#objdump-a指令查看静态库是32位还是64位的" class="headerlink" title="objdump -a指令查看静态库是32位还是64位的"></a>objdump -a指令查看静态库是32位还是64位的</h2><p>如图：objdump -a libtest.a 查看当前编译的静态库libtest.a是32位还是64位的<br><img src="/assets/blogImg/objdump_a.jpg" alt="objdupm_a.jpg"></p>
+<h2 id="readelf-h指令查看静态库or动态库是32位or64位，及编译平台运行平台等信息"><a href="#readelf-h指令查看静态库or动态库是32位or64位，及编译平台运行平台等信息" class="headerlink" title="readelf -h指令查看静态库or动态库是32位or64位，及编译平台运行平台等信息"></a>readelf -h指令查看静态库or动态库是32位or64位，及编译平台运行平台等信息</h2><p>如图：readelf -h libssl.so 查看编译的动态库lib<br><img src="/assets/blogImg/readelf_h.JPG" alt="readelf_h.JPG"></p>
 
       
 
@@ -364,7 +574,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/%E5%B0%86linux%E4%B8%8B%E6%BA%90%E7%A0%81%E6%96%87%E4%BB%B6%E7%9B%B4%E6%8E%A5%E6%94%BE%E5%9C%A8windows%E4%B8%8Bvs%E7%BC%96%E8%AF%91%E7%9A%84%E6%97%B6%E5%80%99%E7%9A%84%E6%8A%A5%E9%94%99/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/12/15/linux%E4%B8%8B%E6%9F%A5%E7%9C%8B%E7%BC%96%E8%AF%91%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF32%E4%BD%8D%E8%BF%98%E6%98%AF64%E4%BD%8D/">展开全文 >></a>
         </p>
       
 
@@ -394,15 +604,32 @@
 
 
   
-    <article id="post-查看静态库-动态库-执行程序的编译工具链gcc-g++版本命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-cjson库版本不一致，导致解析失败" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/15/cjson%E5%BA%93%E7%89%88%E6%9C%AC%E4%B8%8D%E4%B8%80%E8%87%B4%EF%BC%8C%E5%AF%BC%E8%87%B4%E8%A7%A3%E6%9E%90%E5%A4%B1%E8%B4%A5/">cjson库版本不一致，导致解析失败</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/15/cjson%E5%BA%93%E7%89%88%E6%9C%AC%E4%B8%8D%E4%B8%80%E8%87%B4%EF%BC%8C%E5%AF%BC%E8%87%B4%E8%A7%A3%E6%9E%90%E5%A4%B1%E8%B4%A5/" class="archive-article-date">
+  	<time datetime="2019-12-15T03:00:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-15</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="查看静态库-动态库-执行程序的编译工具链gcc-g-版本命令"><a href="#查看静态库-动态库-执行程序的编译工具链gcc-g-版本命令" class="headerlink" title="查看静态库-动态库-执行程序的编译工具链gcc-g++版本命令"></a>查看静态库-动态库-执行程序的编译工具链gcc-g++版本命令</h1><h2 id="使用指令："><a href="#使用指令：" class="headerlink" title="使用指令："></a>使用指令：</h2><p>objdump -s –section=.comment [库名或执行文件名]</p>
-<p>如下图查看动态库：<br><img src="/assets/blogImg/objdump_ssl.jpg" alt="objdump_ssl"><br>可以看出图里的libssl.so和libcrypto.so是交叉编译工具链编译出来的）</p>
-<p>如下图查看静态库：<br><img src="/assets/blogImg/objdump_zma.jpg" alt="objdump_zma"></p>
-<p>如下图查看执行文件：<br><img src="/assets/blogImg/objdump_demo.jpg" alt="objdump_demo"></p>
+        <h1 id="cjson库版本不一致，导致解析失败"><a href="#cjson库版本不一致，导致解析失败" class="headerlink" title="cjson库版本不一致，导致解析失败"></a>cjson库版本不一致，导致解析失败</h1><h1 id="cjson库版本不一致，导致解析失败-1"><a href="#cjson库版本不一致，导致解析失败-1" class="headerlink" title="cjson库版本不一致，导致解析失败"></a>cjson库版本不一致，导致解析失败</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>在编译一个程序demo的时候，需要继承一个第三方库libexample.so，第三方库用到了cjson，本身这个程序也用到了cjson，由于两者用的cjson的版本不一致，导致json解析失败……</p>
+<h2 id="旧版本cjson"><a href="#旧版本cjson" class="headerlink" title="旧版本cjson"></a>旧版本cjson</h2><p>第三方库libexample.so使用的旧版本的cjson，cjson-types截图如下：<br><img src="cjson_old_version.jpg" alt="cjson_old_version.jpg"></p>
+<h2 id="新版本cjson"><a href="#新版本cjson" class="headerlink" title="新版本cjson"></a>新版本cjson</h2><p>程序demo使用的是新版本的cjson，cjson-types截图如下：<br><img src="cjson_new_version.jpg" alt="cjson_new_version.jpg"></p>
+<h2 id="具体现象"><a href="#具体现象" class="headerlink" title="具体现象"></a>具体现象</h2><p>用旧版本的cJSON源码编译到自己的代码里，编译出libexample.so库；<br>程序demo已经使用过新版本的cJSON源码，但是又连接了上面编译出来的libexample.so的库，再次进行json解析，会发现libexample.so里面解析cJSON_Number类型的节点的值会失败；<br>然后重新用新版本的cJSON源码编译出libexample.so库，再集成到上面的demo里面，即可解析成功。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>可以从上面两个不同版本的cjson源码截图的cjosn-types看出来：<br>这两个版本的cJSON Types的值不一样，比如cJSON_Number类型节点的值，旧版本的值是3， 新版本的值是8，<br>所以用旧版本编译的libexample.so库，集成到demo里的时候，解析到cJSON_Number节点的时候，错误的使用值8而不是3，所以导致解析失败</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>代码里一定要保持一个版本的cjson；<br>版本混乱很容易造成奇怪的问题，而且这种问题往往还不容易排查！</p>
 
       
 
@@ -415,7 +642,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/%E6%9F%A5%E7%9C%8B%E9%9D%99%E6%80%81%E5%BA%93-%E5%8A%A8%E6%80%81%E5%BA%93-%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E9%93%BEgcc-g++%E7%89%88%E6%9C%AC%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/12/15/cjson%E5%BA%93%E7%89%88%E6%9C%AC%E4%B8%8D%E4%B8%80%E8%87%B4%EF%BC%8C%E5%AF%BC%E8%87%B4%E8%A7%A3%E6%9E%90%E5%A4%B1%E8%B4%A5/">展开全文 >></a>
         </p>
       
 
@@ -445,16 +672,34 @@
 
 
   
-    <article id="post-树莓派64位系统配置32位运行环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-map存放函数指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/22/map%E5%AD%98%E6%94%BE%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88/">map存放函数指针</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/22/map%E5%AD%98%E6%94%BE%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88/" class="archive-article-date">
+  	<time datetime="2019-09-22T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-22</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="树莓派64位系统配置32位运行环境"><a href="#树莓派64位系统配置32位运行环境" class="headerlink" title="树莓派64位系统配置32位运行环境"></a>树莓派64位系统配置32位运行环境</h1><h2 id="配置libc6-armhf"><a href="#配置libc6-armhf" class="headerlink" title="配置libc6:armhf"></a>配置libc6:armhf</h2><p>树莓派本身安装了64位系统的情况下，需要配置32位程序的运行环境，首先安装依赖库，操作步骤如下，以下操作都要在root用户下进行<br><img src="/assets/blogImg/4b_armhf.jpg" alt="4b_armhf"></p>
-<h2 id="配置32位程序的依赖库环境"><a href="#配置32位程序的依赖库环境" class="headerlink" title="配置32位程序的依赖库环境"></a>配置32位程序的依赖库环境</h2><p>git clone git://github.com/raspberrypi/tools.git<br>将arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/路径下的lib库都拷贝到/usr/local/lib32路径下，这个路径可以自己创建，自定义路径名，专门用来存放底层32位依赖库（如libstdc++.so.6)</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实最重要的，就是从官方提供的交叉编译工具链，把32位库给获取到，然后放到树莓派的自定义路径下，之后自己编译的32位执行程序/库，都要指定链接这个路径的基础库，否则会报错（找不到依赖库）</p>
-<p>本身64位的树莓派系统是不带32位基础库的，所以必须从官方的交叉编译工具链里获取（目前，无法通过apt-get直接获取到所有的32位依赖库）</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://raspberrypi.club/148.html">https://raspberrypi.club/148.html</a></p>
+        <h1 id="map存放函数指针"><a href="#map存放函数指针" class="headerlink" title="map存放函数指针"></a>map存放函数指针</h1><h1 id="map里存放函数指针"><a href="#map里存放函数指针" class="headerlink" title="map里存放函数指针"></a>map里存放函数指针</h1><p>由于有时候，想把某一类功能的函数，存在一个map里，所以写了一个demo</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>源码如下（已本地运行通过）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  main.cpp</span></span><br><span class="line"><span class="comment">//  mapfunc</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by 慕寒 on 2019/9/22.</span></span><br><span class="line"><span class="comment">//  Copyright © 2019 慕寒. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 将函数指针缓存在map里</span></span><br><span class="line"></span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;map&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span>* <span class="function"><span class="title">helloFuncOne</span>(<span class="params"></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello, World!\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> NULL;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">long <span class="function"><span class="title">helloFuncTwo</span>(<span class="params">long x, long y</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    long ret = <span class="number">0</span>;</span><br><span class="line">    ret = x + y;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;x + y = &quot;</span>&lt;&lt; ret &lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int <span class="function"><span class="title">main</span>(<span class="params">int argc, <span class="keyword">const</span> char * argv[]</span>)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 缓存函数名，函数指针在map里</span></span><br><span class="line">    map&lt;string, long&gt; func_name_ptr;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将函数指针缓存到map里</span></span><br><span class="line">    func_name_ptr[<span class="string">&quot;func1&quot;</span>] = (long)&amp;helloFuncOne;</span><br><span class="line">    func_name_ptr[<span class="string">&quot;func2&quot;</span>] = (long)&amp;helloFuncTwo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用函数指针func1</span></span><br><span class="line">    typedef <span class="keyword">void</span>* (*FUNC)();</span><br><span class="line">    long fptr_one = func_name_ptr[<span class="string">&quot;func1&quot;</span>];</span><br><span class="line">    <span class="keyword">if</span>(fptr_one != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;fptr_one \n&quot;</span>;</span><br><span class="line">        <span class="comment">//调用函数func1</span></span><br><span class="line">        ((FUNC)fptr_one)();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//调用函数指针func2</span></span><br><span class="line">    typedef long (*FUNCTWO)(long, long);</span><br><span class="line">    long fptr_two = func_name_ptr[<span class="string">&quot;func2&quot;</span>];</span><br><span class="line">    <span class="keyword">if</span>(fptr_two != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;fptr_two \n&quot;</span>;</span><br><span class="line">        <span class="comment">//调用函数func2</span></span><br><span class="line">        long two_ret = ((FUNCTWO)fptr_two)(<span class="number">3</span>, <span class="number">7</span>);</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;two_ret = &quot;</span>&lt;&lt;two_ret &lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>//PS: map的第二个参数为什么用了long型，而不是int型<br>//由于在XCode编译报错 Cast from pointer to smaller type ‘int’ loses information<br>//报错原因是：由于使用了强转将void<em>转为int，而在XCode上使用的为x64的编译，X64下的void</em>地址为8字节，而int为4字节，强转时会导致越界，故出现此错误。<br>源码运行后到结果如下：</p>
+<p><img src="/assets/blogImg/map_func.jpg" alt="map_func_exec"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>注意类型强制转换到时候，可能会有越界报错</p>
+<p>源码已同步到github上：<a target="_blank" rel="noopener" href="https://github.com/TreeAndFlower/map_func_ptr">https://github.com/TreeAndFlower/map_func_ptr</a></p>
 
       
 
@@ -467,7 +712,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/%E6%A0%91%E8%8E%93%E6%B4%BE64%E4%BD%8D%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE32%E4%BD%8D%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/22/map%E5%AD%98%E6%94%BE%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88/">展开全文 >></a>
         </p>
       
 
@@ -497,12 +742,41 @@
 
 
   
-    <article id="post-树莓派交叉编译的三种常见方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-windows下使用Kernel32.lib库,统一API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/09/windows%E4%B8%8B%E4%BD%BF%E7%94%A8Kernel32.lib%E5%BA%93,%E7%BB%9F%E4%B8%80API/">windows下使用Kernel32.lib库,统一API</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/09/windows%E4%B8%8B%E4%BD%BF%E7%94%A8Kernel32.lib%E5%BA%93,%E7%BB%9F%E4%B8%80API/" class="archive-article-date">
+  	<time datetime="2019-09-09T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-09</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="树莓派交叉编译的三种常见方式"><a href="#树莓派交叉编译的三种常见方式" class="headerlink" title="树莓派交叉编译的三种常见方式"></a>树莓派交叉编译的三种常见方式</h1><p><img src="/assets/blogImg/4b_complie_1.jpg" alt="4b_complie_1.jpg"><br><img src="/assets/blogImg/4b_complie_2.jpg" alt="4b_complie_2.jpg"><br><img src="/assets/blogImg/4b_complie_3.jpg" alt="4b_complie_3.jpg"><br><img src="/assets/blogImg/4b_complie_5.jpg" alt="4b_complie_5.jpg"></p>
+        <h1 id="windows下使用Kernel32-lib库-统一API"><a href="#windows下使用Kernel32-lib库-统一API" class="headerlink" title="windows下使用Kernel32.lib库,统一API"></a>windows下使用Kernel32.lib库,统一API</h1><h1 id="windows下使用Kernel32-lib库-统一API-1"><a href="#windows下使用Kernel32-lib库-统一API-1" class="headerlink" title="windows下使用Kernel32.lib库,统一API"></a>windows下使用Kernel32.lib库,统一API</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>由于是统一API的前提下，做成了不同实现了这些API功能的动态链接库，然后根据需要，动态的做出选择去加载这些动态库，并且是在windows下，所以最终用Kernel32.lib库</p>
+<h2 id="要注意接口导出"><a href="#要注意接口导出" class="headerlink" title="要注意接口导出"></a>要注意接口导出</h2><p>头文件如下：（要注意将接口导出）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//导出接口</span></span><br><span class="line">#ifdef DLLLIB </span><br><span class="line">#define DLLLIB _declspec(dllexport)</span><br><span class="line">#<span class="keyword">else</span></span><br><span class="line">#define DLLLIB _declspec(dllimport)</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">extern <span class="string">&quot;C&quot;</span>&#123;</span><br><span class="line">	DLLLIB short one_fun_api(<span class="keyword">const</span> string&amp;);</span><br><span class="line"></span><br><span class="line">	DLLLIB short two_fun_api(<span class="keyword">const</span> int&amp;);</span><br><span class="line"></span><br><span class="line">	DLLLIB short three_fun_api(<span class="keyword">const</span> string&amp;);</span><br><span class="line"></span><br><span class="line">	DLLLIB short four_fun_api(<span class="keyword">const</span> string&amp;);</span><br><span class="line"></span><br><span class="line">	DLLLIB bool  five_fun_api();</span><br><span class="line"></span><br><span class="line">	DLLLIB bool  six_fun_api();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要代码如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">short loadLibDemo::<span class="function"><span class="title">realLoadLib</span>(<span class="params"><span class="keyword">const</span> string&amp; libPath</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(libPath.length() &lt;= <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	libHandle = LoadLibrary(libPath.c_str());</span><br><span class="line">	<span class="keyword">if</span>(NULL==libHandle)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;dlopen fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pOne = (PFUN_APIOne)GetProcAddress(libHandle, <span class="string">&quot;one_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pOne)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIOne] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pTwo = (PFUN_APITwo)GetProcAddress(libHandle, <span class="string">&quot;two_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pTwo)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APITwo] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pThree = (PFUN_APIThree)GetProcAddress(libHandle, <span class="string">&quot;three_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pThree)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIThree] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pFour = (PFUN_APIFour)GetProcAddress(libHandle, <span class="string">&quot;four_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pFour)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIFour] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pFive = (PFUN_APIFive)GetProcAddress(libHandle, <span class="string">&quot;five_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pFive)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIFive] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pSix = (PFUN_APISix)GetProcAddress(libHandle, <span class="string">&quot;six_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pSix)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APISix] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整代码已经放在了<a target="_blank" rel="noopener" href="https://github.com/TreeAndFlower/loadlibdemo-windows">https://github.com/TreeAndFlower/loadlibdemo-windows</a></p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>要记得导出API接口！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">如果没有导出接口，可能会报错，报错信息如下：</span><br><span class="line"></span><br><span class="line">GetProcAddress 出错，返回NULL(<span class="number">127</span>)</span><br><span class="line"></span><br><span class="line">这个错误原因，就是由于忘记了没有导出dll库的对外接口函数，</span><br><span class="line">是忘记了用 extern <span class="string">&quot;C&quot;</span> __declspec(dllexport) ，需要将接口导出，GetProcAddress才可以使用这些接口函数</span><br></pre></td></tr></table></figure>
+
+<p>windows下用Kernel32.lib库，头文件是Windows.h；</p>
+<p>PS：</p>
+<p>另外，linux版本的blog在这里：<a target="_blank" rel="noopener" href="https://treeandflower.github.io/2019/09/01/linux%E4%B8%8B%E4%BD%BF%E7%94%A8dl%E5%BA%93%EF%BC%8C%E7%BB%9F%E4%B8%80API/">https://treeandflower.github.io/2019/09/01/linux下使用dl库，统一API/</a></p>
+<p>如有描述不对之处，欢迎大家指正</p>
 
       
 
@@ -515,7 +789,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/%E6%A0%91%E8%8E%93%E6%B4%BE%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E7%9A%84%E4%B8%89%E7%A7%8D%E5%B8%B8%E8%A7%81%E6%96%B9%E5%BC%8F/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/09/windows%E4%B8%8B%E4%BD%BF%E7%94%A8Kernel32.lib%E5%BA%93,%E7%BB%9F%E4%B8%80API/">展开全文 >></a>
         </p>
       
 
@@ -545,145 +819,34 @@
 
 
   
-    <article id="post-简单工厂模式学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-mqtt连接时报错-8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简单工厂模式学习笔记"><a href="#简单工厂模式学习笔记" class="headerlink" title="简单工厂模式学习笔记"></a>简单工厂模式学习笔记</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>本次案例demo来自《大话设计模式》一书，是C++版本的实现</p>
-<h2 id="案例说明"><a href="#案例说明" class="headerlink" title="案例说明"></a>案例说明</h2><p>设计一个简单的计算器，可以进行加减乘除功能</p>
-<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p>完整源码已同步到github上<br>地址：<a target="_blank" rel="noopener" href="https://github.com/TreeAndFlower/sampleFactory.git">https://github.com/TreeAndFlower/sampleFactory.git</a></p>
-<h2 id="部分代码示例如下："><a href="#部分代码示例如下：" class="headerlink" title="部分代码示例如下："></a>部分代码示例如下：</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">baseCalculate</span></span>&#123;</span><br><span class="line"><span class="attr">public</span>:</span><br><span class="line">    baseCalculate();</span><br><span class="line">    ~baseCalculate();</span><br><span class="line"></span><br><span class="line">    virtual double getResult(double numA, double numB)=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Add</span>:<span class="title">public</span> <span class="title">baseCalculate</span></span>&#123;</span><br><span class="line"><span class="attr">public</span>:</span><br><span class="line">    Add();</span><br><span class="line">    ~Add();</span><br><span class="line">    </span><br><span class="line">    double getResult(double numA, double numB);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sub</span>:<span class="title">public</span> <span class="title">baseCalculate</span></span>&#123;</span><br><span class="line"><span class="attr">public</span>:</span><br><span class="line">    Sub();</span><br><span class="line">    ~Sub();</span><br><span class="line">    </span><br><span class="line">    double getResult(double numA, double numB);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Multi</span>:<span class="title">public</span> <span class="title">baseCalculate</span></span>&#123;</span><br><span class="line"><span class="attr">public</span>:</span><br><span class="line">    Multi();</span><br><span class="line">    ~Multi();</span><br><span class="line">    </span><br><span class="line">    double getResult(double numA, double numB);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Div</span>:<span class="title">public</span> <span class="title">baseCalculate</span></span>&#123;</span><br><span class="line"><span class="attr">public</span>:</span><br><span class="line">    Div();</span><br><span class="line">    ~Div();</span><br><span class="line">    </span><br><span class="line">    double getResult(double numA, double numB);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExecuteCalculate</span></span>&#123;</span><br><span class="line"><span class="attr">public</span>:</span><br><span class="line">    ExecuteCalculate();</span><br><span class="line">    ~ExecuteCalculate();</span><br><span class="line">    </span><br><span class="line">    bool calculateData(double numA, double numB, string strSign, double&amp; theValue);</span><br><span class="line">    </span><br><span class="line">private:</span><br><span class="line">    baseCalculate* the_base_cal;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="编译方式"><a href="#编译方式" class="headerlink" title="编译方式"></a>编译方式</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd build</span><br><span class="line">cmake ..</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<p>即可生成可执行文件sampleFactory，执行后即可看到如下效果：<br><img src="/assets/blogImg/factory_complie.jpg" alt="编译并执行sampleFactory"></p>
-<h2 id="特别说明"><a href="#特别说明" class="headerlink" title="特别说明"></a>特别说明</h2><p>在学习《大话设计模式》中，为了加深学习效果，因此用C++实现一遍文中的java案例，仅是学习笔记</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
+      <header class="article-header">
         
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-debian10系统原本为64位系统下如何配置32位编译and运行环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="debian10系统原本为64位系统，如何配置32位编译and运行环境"><a href="#debian10系统原本为64位系统，如何配置32位编译and运行环境" class="headerlink" title="debian10系统原本为64位系统，如何配置32位编译and运行环境"></a>debian10系统原本为64位系统，如何配置32位编译and运行环境</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>原本安装的是debian10的64位系统，但是因为有些第三方程序是32位的，需要在这个系统上编译运行，那么需要配置一下必要的环境</p>
-<h2 id="当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境"><a href="#当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境" class="headerlink" title="当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境"></a>当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境</h2><p>一般来说，编译32位程序时，如果出现以下报错,可以认为没有配置32位编译or运行环境</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error: bits/libc-header-start.h: No such file or directory</span><br></pre></td></tr></table></figure>
-
-<p>运行32位程序时，如果出现以下报错，也可以认为没有配置32位编译or运行环境</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//明明有执行程序test（32位的），但是执行./test的时候却报错</span></span><br><span class="line">test： </span><br><span class="line">     no such file or directory</span><br></pre></td></tr></table></figure>
-
-<p>出现以上两种情况的任何一个时，一般可以判断时由于64位debian系统下，没有配置32位程序的编译or运行环境，需要执行以下两个步骤</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="一、执行sudo-apt-get-install-gcc-multilib"><a href="#一、执行sudo-apt-get-install-gcc-multilib" class="headerlink" title="一、执行sudo apt-get install gcc-multilib"></a>一、执行sudo apt-get install gcc-multilib</h3><p>安装gcc-multilib</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装gcc-multilib</span></span><br><span class="line">sudo apt-get install gcc-multilib</span><br></pre></td></tr></table></figure>
-
-<h3 id="二、执行sudo-apt-get-install-g-multilib"><a href="#二、执行sudo-apt-get-install-g-multilib" class="headerlink" title="二、执行sudo apt-get install g++-multilib"></a>二、执行sudo apt-get install g++-multilib</h3><p>安装g++-multilib</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装g++-multilib</span></span><br><span class="line">sudo apt-get install g++-multilib</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>因为从官网直接下载下来的debian10的64位安装镜像在安装完成后，原始的debian系统是不支持32位程序运行的，所以需要对环境进行配置，所以做个记录，免得下次忘记了</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/debian10%E7%B3%BB%E7%BB%9F%E5%8E%9F%E6%9C%AC%E4%B8%BA64%E4%BD%8D%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE32%E4%BD%8D%E7%BC%96%E8%AF%91and%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/05/mqtt%E8%BF%9E%E6%8E%A5%E6%97%B6%E6%8A%A5%E9%94%99-8/">mqtt连接时报错-8</a>
+    </h1>
   
-    <article id="post-ifconfig指令配置网卡信息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+
+        
+        <a href="/2019/09/05/mqtt%E8%BF%9E%E6%8E%A5%E6%97%B6%E6%8A%A5%E9%94%99-8/" class="archive-article-date">
+  	<time datetime="2019-09-05T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="ifconfig指令配置网卡信息"><a href="#ifconfig指令配置网卡信息" class="headerlink" title="ifconfig指令配置网卡信息"></a>ifconfig指令配置网卡信息</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>linux/unix系统下，输入ifconfig指令，发现只有lo本地回环，没有网卡信息，为了能够正常上网，需要配置一下网卡信息</p>
-<p>当输入指令</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifconfig eth0 <span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span></span><br><span class="line">(可以自行设置ip地址）</span><br></pre></td></tr></table></figure>
-
-<p>会提示报错信息</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SIOCSIFADDR: No such device</span><br><span class="line"><span class="attr">eth0</span>: ERROR <span class="keyword">while</span> getting interface flags: No such device</span><br></pre></td></tr></table></figure>
-
-<p>此时，我们会发现设置网卡eth0失败了，提示我们没有这个网卡。那么，很有可能，我们的网卡不叫“eth0”这个名字，而不是我们真的没有网卡。</p>
-<h2 id="ifconfig-a"><a href="#ifconfig-a" class="headerlink" title="ifconfig -a"></a>ifconfig -a</h2><p>输入指令</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig -a</span><br></pre></td></tr></table></figure>
-
-<p>此时，我们可以看到系统列出来我们所有的网卡名，如下图：</p>
-<p><img src="/assets/blogImg/ifconfig-a.jpg" alt="ifconfig-a指令显示所有网卡"></p>
-<h2 id="配置网卡的ip"><a href="#配置网卡的ip" class="headerlink" title="配置网卡的ip"></a>配置网卡的ip</h2><p>接下来，我们发现自己系统的网卡果然没有eth0这个网卡名，但是有en0，所以，接下来我们设置来配置这个网卡的ip</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifconfig en0 <span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span></span><br><span class="line">(可以自行设置ip地址）</span><br></pre></td></tr></table></figure>
-<p>然后回车后，就发现设置ip成功啦～</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一般情况下，因为我们常见的linux下的网卡名字都是eth0，所以习惯性的就直接配置eth0的ip，但是有的系统并不是用eth0当网卡名，所以还是要先输入ifconfig -a指令，来查看一下我们当前的系统下，网卡的名字都是什么，然后再去配置ip</p>
+        <h1 id="mqtt连接时报错-8"><a href="#mqtt连接时报错-8" class="headerlink" title="mqtt连接时报错-8"></a>mqtt连接时报错-8</h1><h1 id="mqtt连接时报错，错误码是-8"><a href="#mqtt连接时报错，错误码是-8" class="headerlink" title="mqtt连接时报错，错误码是-8"></a>mqtt连接时报错，错误码是-8</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>使用mqtt-c库，创建mqtt连接的时候报错，错误码是-8</p>
+<h2 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h2><p>根据头文件来看</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define MQTTASYNC_BAD_STRUCTURE -<span class="number">8</span></span><br></pre></td></tr></table></figure>
+<p>错误码是-8的时候，表示创建连接的mqtt的结构体是错误的</p>
+<p>经过排查之后，发现，是mqtt的库版本不对。<br>因为系统里同时安装了两个版本的mqtt的库，一个是最新的，一个是原本用的旧版本的，在编译的时候，用了最新的mqtt的版本编译。</p>
+<p>但是把程序给别人的时候，别人用的是旧版本的mqtt的动态库，所以当程序执行的时候，当创建连接时，会报错-8</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在多个人使用同一个第三方库的时候，一定一定要注意，版本的问题；要保证大家使用的是统一的版本号编译的第三方动态库！</p>
+<p>版本差异导致报错，这种问题真的很坑……</p>
 
       
 
@@ -696,7 +859,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/ifconfig%E6%8C%87%E4%BB%A4%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1%E4%BF%A1%E6%81%AF/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/05/mqtt%E8%BF%9E%E6%8E%A5%E6%97%B6%E6%8A%A5%E9%94%99-8/">展开全文 >></a>
         </p>
       
 

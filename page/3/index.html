@@ -152,24 +152,38 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-libcurl交叉编译" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-windows下命令行查看进程号" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/05/windows%E4%B8%8B%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%8F%B7/">windows下命令行查看进程号</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/05/windows%E4%B8%8B%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%8F%B7/" class="archive-article-date">
+  	<time datetime="2019-09-05T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="libcurl交叉编译"><a href="#libcurl交叉编译" class="headerlink" title="libcurl交叉编译"></a>libcurl交叉编译</h1><h1 id="需要源码交叉编译libcurl操作步骤"><a href="#需要源码交叉编译libcurl操作步骤" class="headerlink" title="需要源码交叉编译libcurl操作步骤"></a>需要源码交叉编译libcurl操作步骤</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>有时候需要交叉编译libcurl，比如目标机器是32位系统的，但是本地机器是64位系统的，而且由于某些原因，我们无法在32位系统上直接编译，所以需要用到交叉编译</p>
-<h2 id="编译openssl"><a href="#编译openssl" class="headerlink" title="编译openssl"></a>编译openssl</h2><p>libcurl是依赖openssl的，所以先编译openssl的32位库</p>
-<p>完整编译选项配置如下：<br>setarch i386 ./config -m32 –prefix=/home/muhan/openssl/ –openssldir=/home/muhan/openssl/ -Wl,-rpath,/usr/local/openssl/lib shared<br>详细选项含义如下：<br>预先已经export CC的版本<br>配置-m32 指定编译32位的库<br>配置–prefix 指定openssl的安装目录<br>配置–openssldir 指定openssl的头文件目录<br>配置shared关键字 指定编译时生成动态库（libssl.so/libcrypto.so及其相关软连接）</p>
-<p>然后再make &amp;&amp; make install 即可</p>
-<h2 id="编译安装zlib"><a href="#编译安装zlib" class="headerlink" title="编译安装zlib"></a>编译安装zlib</h2><p>有时候有的系统是默认安装了32位zlib库的，那么就可以跳过这一步，但是有的系统需要自己下载编译zlib-32位库</p>
-<p>完整编译选项配置如下：<br>直接修改CMakeLists.txt文件，增加以下两行<br>set(CMAKE_C_FLAGS “-m32”)<br>set(CMAKE_CXX_FLAGS “-m32”)<br>详细选项含义如下：<br>配置CMAKE_C_FLAGS 指定编译32位库环境<br>配置CMAKE_CXX_FLAGS 指定编译32位库环境</p>
-<p>然后再mkdir build &amp;&amp; cd build &amp;&amp; cmake .. &amp;&amp; make &amp;&amp; make install 即可</p>
-<h2 id="编译安装libcurl"><a href="#编译安装libcurl" class="headerlink" title="编译安装libcurl"></a>编译安装libcurl</h2><p>最后就是编译libcurl</p>
-<p>完整编译选项配置如下：<br>./configure PKG_CONFIG_PATH=/home/muhan/openssl CFLAGS=”-m32” CPPFLAGS=”-I/home/muhan/openssl/include” LDFLAGS=”-L/home/muhan/openssl/lib”<br>详细选项含义如下：<br>配置PKG_CONFIG_PATH 指定启动openssl选项(启动这个选项，就会默认链接lssl，lcrypto，lz三个库）<br>配置CFLAGS 指定编译32位库环境<br>配置CPPFLAGS 指定链接的库的头文件<br>配置LDFLAGS 指定链接的库的路径</p>
-<p>然后再make &amp;&amp; make install 即可</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>当编译第三方库的时候，如果有CMakeLists.txt，直接用CMakeLists.txt编译就很方便；<br>如果只有configure，那么需要先了解编译选项</p>
-<p>执行./configure –help 来查看当前支持的编译选项<br>然后根据提示配置一下我们需要指定的选项，比如自己指定的openssl的版本的库和头文件路径名，比如CC的版本，比如安装路径等等<br>(当然，如果不需要额外配置这些东西的话，直接走默认配置的话，那么直接执行./config 或者 ./configure 就行)</p>
-<p>然后在生成Makefile之后，再make &amp;&amp; make install 即可</p>
+        <h1 id="windows下命令行查看进程号"><a href="#windows下命令行查看进程号" class="headerlink" title="windows下命令行查看进程号"></a>windows下命令行查看进程号</h1><h1 id="windows下命令行查看进程号-1"><a href="#windows下命令行查看进程号-1" class="headerlink" title="windows下命令行查看进程号"></a>windows下命令行查看进程号</h1><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>在windows下，知道某个执行程序的名称，比如ICO.exe<br>想要查看它的进程id，比如电脑特别卡的时候，想知道它的进程id，然后关掉它</p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>输入以下指令，可以查看当前所有的进程号</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查看所有的进程号</span></span><br><span class="line">wmic process list</span><br></pre></td></tr></table></figure>
+
+<p>输入以下指令，可以查看某个被查询的执行程序的执行程序的名字，路径，以及进程号</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入以下指令，可以查看执行程序的名字，路径，以及进程号</span></span><br><span class="line">wmic process get name,executablepath,processid|findstr 执行程序名</span><br></pre></td></tr></table></figure>
+
+<p>输入以下指令，可以kill掉指定进程</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//强制杀死PID为processId的进程</span></span><br><span class="line">taskkill /pid processId -f</span><br></pre></td></tr></table></figure>
+
+<p>如下图，查看ICO.exe这个执行程序的路径，进程号：<br><img src="/assets/blogImg/win_find_pid.jpg" alt="windows下查看某个执行程序的进程号"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>windows下和linux下的命令查看方式不同，windows下查看进程号是用wmic process 命令<br>；linux下直接用 ”pidof 执行程序名“</p>
 
       
 
@@ -182,7 +196,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/libcurl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/05/windows%E4%B8%8B%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E5%8F%B7/">展开全文 >></a>
         </p>
       
 
@@ -215,6 +229,21 @@
     <article id="post-linux下使用dl库统一API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/01/linux%E4%B8%8B%E4%BD%BF%E7%94%A8dl%E5%BA%93%E7%BB%9F%E4%B8%80API/">linux下使用dl库，统一API</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/01/linux%E4%B8%8B%E4%BD%BF%E7%94%A8dl%E5%BA%93%E7%BB%9F%E4%B8%80API/" class="archive-article-date">
+  	<time datetime="2019-09-01T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-01</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="linux下使用dl库，统一API"><a href="#linux下使用dl库，统一API" class="headerlink" title="linux下使用dl库，统一API"></a>linux下使用dl库，统一API</h1><h1 id="linux下使用dl库，统一API-1"><a href="#linux下使用dl库，统一API-1" class="headerlink" title="linux下使用dl库，统一API"></a>linux下使用dl库，统一API</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>由于是统一API的前提下，做成了不同实现了这些API功能的动态链接库，然后根据配置文件等，动态的做出选择去加载这些动态库，并且是在linux下，所以最终选择了dl库</p>
@@ -242,7 +271,149 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/linux%E4%B8%8B%E4%BD%BF%E7%94%A8dl%E5%BA%93%E7%BB%9F%E4%B8%80API/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/01/linux%E4%B8%8B%E4%BD%BF%E7%94%A8dl%E5%BA%93%E7%BB%9F%E4%B8%80API/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-windows下查看dll库里编译的导出接口内容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/31/windows%E4%B8%8B%E6%9F%A5%E7%9C%8Bdll%E5%BA%93%E9%87%8C%E7%BC%96%E8%AF%91%E7%9A%84%E5%AF%BC%E5%87%BA%E6%8E%A5%E5%8F%A3%E5%86%85%E5%AE%B9/">windows下查看dll库里编译的导出接口内容</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/31/windows%E4%B8%8B%E6%9F%A5%E7%9C%8Bdll%E5%BA%93%E9%87%8C%E7%BC%96%E8%AF%91%E7%9A%84%E5%AF%BC%E5%87%BA%E6%8E%A5%E5%8F%A3%E5%86%85%E5%AE%B9/" class="archive-article-date">
+  	<time datetime="2019-08-31T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="windows下查看dll库里编译的导出接口内容"><a href="#windows下查看dll库里编译的导出接口内容" class="headerlink" title="windows下查看dll库里编译的导出接口内容"></a>windows下查看dll库里编译的导出接口内容</h1><h1 id="windows下查看dll库里编译的导出接口内容-1"><a href="#windows下查看dll库里编译的导出接口内容-1" class="headerlink" title="windows下查看dll库里编译的导出接口内容"></a>windows下查看dll库里编译的导出接口内容</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前在windows下，链接一个dll库的时候，报错的大概意思是说”xxx某个接口未定义”，于是就想着查看一下这个dll库，对外暴露的API到底是不是真的不存在，所以查找了一下，windows下，查看dll库编译的内容</p>
+<h2 id="查看dll库里编译的导出接口"><a href="#查看dll库里编译的导出接口" class="headerlink" title="查看dll库里编译的导出接口"></a>查看dll库里编译的导出接口</h2><p>在安装了vs的前提下</p>
+<ol>
+<li>输入win+r 然后cmd， 召唤出dos终端</li>
+<li>找到vs安装目录下C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools，找到vsvar开头的一个bat文件，然后拖到dos终端<br>（找到自己对应的vs安装目录下的，Tools工具路径下，找到vsvar开头的bat文件，然后拖拽到终端）</li>
+<li>在dos终端下，输入dumpbin /exports dll库的绝对路径，即可查看dll库里，对外暴露的API的内容</li>
+</ol>
+<p>大概效果如下：</p>
+<p><img src="dumpbin_exports_dll.jpg" alt="查看dll库可导出接口有哪些"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>解决方案：<a target="_blank" rel="noopener" href="https://blog.csdn.net/z8110/article/details/89393549">https://blog.csdn.net/z8110/article/details/89393549</a><br>非常感谢hpuzsk在csdn的一篇blog里提供的解决方案，非常非常好用～ 讲解的非常仔细～<br>对这个方案记录备份一下，免得之后忘记了～</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/31/windows%E4%B8%8B%E6%9F%A5%E7%9C%8Bdll%E5%BA%93%E9%87%8C%E7%BC%96%E8%AF%91%E7%9A%84%E5%AF%BC%E5%87%BA%E6%8E%A5%E5%8F%A3%E5%86%85%E5%AE%B9/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-将linux下源码文件直接放在windows下vs编译的时候的报错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/31/%E5%B0%86linux%E4%B8%8B%E6%BA%90%E7%A0%81%E6%96%87%E4%BB%B6%E7%9B%B4%E6%8E%A5%E6%94%BE%E5%9C%A8windows%E4%B8%8Bvs%E7%BC%96%E8%AF%91%E7%9A%84%E6%97%B6%E5%80%99%E7%9A%84%E6%8A%A5%E9%94%99/">将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared identifier的奇怪报错</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/31/%E5%B0%86linux%E4%B8%8B%E6%BA%90%E7%A0%81%E6%96%87%E4%BB%B6%E7%9B%B4%E6%8E%A5%E6%94%BE%E5%9C%A8windows%E4%B8%8Bvs%E7%BC%96%E8%AF%91%E7%9A%84%E6%97%B6%E5%80%99%E7%9A%84%E6%8A%A5%E9%94%99/" class="archive-article-date">
+  	<time datetime="2019-08-31T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared-identifier的奇怪报错"><a href="#将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared-identifier的奇怪报错" class="headerlink" title="将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared identifier的奇怪报错"></a>将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared identifier的奇怪报错</h1><h1 id="将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared-identifier的奇怪报错-1"><a href="#将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared-identifier的奇怪报错-1" class="headerlink" title="将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared identifier的奇怪报错"></a>将linux下源码文件，直接放在windows下vs编译的时候，关于undeclared identifier的奇怪报错</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我的一个工程里的源文件就叫他a.cpp,在linux下可以正常的编译，由于工程需要移植到windos下，所以我把a.cpp源文件移动到windows下的工程里，然后编译，编译的时候，发现有两个特别诡异的报错，报错内容如下：</p>
+<p><img src="/assets/blogImg/copy_cpp_error.jpg" alt="直接将cpp从Linux下挪到windows下报错"></p>
+<p>更为奇怪的是，如果我在windows操作系统下，将a.cpp文件，用sublime.txt打开，然后再全选内容，拷贝到vs到工程里报错的a.cpp文件里，然后发现可以成功编译！</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>经过一系列脑壳疼的排查，最终发现，这是因为，linux下和windows下的换行符不一样！！！<br>如果用sublime.txt把报错的源文件a.cpp的所有\n替换成windows下的\r\n,然后再保存文件，把保存修改的文件，挪到vs里直接编译，发现阔以了！！！</p>
+<p>vs是不支持把linux下的换行符主动转成windows下的换行符的！！！巨坑</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>后来，查看了网友将linux和windows换行符的区别，讲的特别好<br>链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/stpeace/article/details/45767245">https://blog.csdn.net/stpeace/article/details/45767245</a></p>
+<p>讲解的特别精彩的截图片段<br><img src="/assets/blogImg/huanhangfu.jpg" alt="linux与windows换行符的区别"></p>
+<h2 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h2><p>不得不说，像换行符这种巨坑的问题，排查起来简直特别特别坑……</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/31/%E5%B0%86linux%E4%B8%8B%E6%BA%90%E7%A0%81%E6%96%87%E4%BB%B6%E7%9B%B4%E6%8E%A5%E6%94%BE%E5%9C%A8windows%E4%B8%8Bvs%E7%BC%96%E8%AF%91%E7%9A%84%E6%97%B6%E5%80%99%E7%9A%84%E6%8A%A5%E9%94%99/">展开全文 >></a>
         </p>
       
 
@@ -275,6 +446,21 @@
     <article id="post-linux下使用nm指令查看静态库or动态库编译内容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/30/linux%E4%B8%8B%E4%BD%BF%E7%94%A8nm%E6%8C%87%E4%BB%A4%E6%9F%A5%E7%9C%8B%E9%9D%99%E6%80%81%E5%BA%93or%E5%8A%A8%E6%80%81%E5%BA%93%E7%BC%96%E8%AF%91%E5%86%85%E5%AE%B9/">linux下使用nm指令查看静态库/动态库编译内容</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/30/linux%E4%B8%8B%E4%BD%BF%E7%94%A8nm%E6%8C%87%E4%BB%A4%E6%9F%A5%E7%9C%8B%E9%9D%99%E6%80%81%E5%BA%93or%E5%8A%A8%E6%80%81%E5%BA%93%E7%BC%96%E8%AF%91%E5%86%85%E5%AE%B9/" class="archive-article-date">
+  	<time datetime="2019-08-30T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="linux下使用nm指令查看静态库-动态库编译内容"><a href="#linux下使用nm指令查看静态库-动态库编译内容" class="headerlink" title="linux下使用nm指令查看静态库/动态库编译内容"></a>linux下使用nm指令查看静态库/动态库编译内容</h1><h1 id="在linux下使用nm指令查看静态库-动态库编译内容"><a href="#在linux下使用nm指令查看静态库-动态库编译内容" class="headerlink" title="在linux下使用nm指令查看静态库/动态库编译内容"></a>在linux下使用nm指令查看静态库/动态库编译内容</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>之前其实没有关注过，库里面到底是哪些内容，然而最近遇上了一个链接库的问题，然后关注了一下这个问题，查到使用nm指令，即可查看到linux下，静态库，动态库里到底编译了哪些内容</p>
@@ -303,7 +489,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/linux%E4%B8%8B%E4%BD%BF%E7%94%A8nm%E6%8C%87%E4%BB%A4%E6%9F%A5%E7%9C%8B%E9%9D%99%E6%80%81%E5%BA%93or%E5%8A%A8%E6%80%81%E5%BA%93%E7%BC%96%E8%AF%91%E5%86%85%E5%AE%B9/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/08/30/linux%E4%B8%8B%E4%BD%BF%E7%94%A8nm%E6%8C%87%E4%BB%A4%E6%9F%A5%E7%9C%8B%E9%9D%99%E6%80%81%E5%BA%93or%E5%8A%A8%E6%80%81%E5%BA%93%E7%BC%96%E8%AF%91%E5%86%85%E5%AE%B9/">展开全文 >></a>
         </p>
       
 
@@ -333,126 +519,29 @@
 
 
   
-    <article id="post-mac下配置rar与unrar命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-windows下用VisualStudio编译libiconv库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="mac下配置rar与unrar命令"><a href="#mac下配置rar与unrar命令" class="headerlink" title="mac下配置rar与unrar命令"></a>mac下配置rar与unrar命令</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>因为在mac下下载了rar文件，需要解压，然而mac上默认没有rar解压环境，于是配置了一下命令行rar/unrar环境</p>
-<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="1-下载RAR包"><a href="#1-下载RAR包" class="headerlink" title="1.下载RAR包"></a>1.下载RAR包</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下载地址如下</span></span><br><span class="line"><span class="attr">https</span>:<span class="comment">//www.rarlab.com/download.htm</span></span><br><span class="line"><span class="comment">//然后选择for macOS的更新包，比如</span></span><br><span class="line">RAR <span class="number">5.91</span> beta <span class="number">1</span> <span class="keyword">for</span> macOS(<span class="number">64</span> bit)</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-解压下载后的更新包"><a href="#2-解压下载后的更新包" class="headerlink" title="2.解压下载后的更新包"></a>2.解压下载后的更新包</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//找到刚刚的更新包路径，然后cd到这个路径下，在命令行输入</span></span><br><span class="line">tar -zxvf rarosx-<span class="number">5.9</span>.1b1.tar</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-安装rar和unrar"><a href="#3-安装rar和unrar" class="headerlink" title="3.安装rar和unrar"></a>3.安装rar和unrar</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo install -c -o $USER rar /usr/local/bin</span><br><span class="line">sudo install -c -o $USER unrar /usr/local/bin</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-然后需要在安全与隐私里准许这个rar软件包"><a href="#4-然后需要在安全与隐私里准许这个rar软件包" class="headerlink" title="4.然后需要在安全与隐私里准许这个rar软件包"></a>4.然后需要在安全与隐私里准许这个rar软件包</h3><p>如下图所示，先点击解锁，然后输入密码，然后准许rar软件包<br>（因为我这边已经准许过了，所以这里现在是空，差不多就是这个位置）<br><img src="/assets/blogImg/rar_ok.jpg" alt="点击解锁，然后准许rar软件包"></p>
-<h3 id="5-然后就可以解压自己的rar文件了"><a href="#5-然后就可以解压自己的rar文件了" class="headerlink" title="5.然后就可以解压自己的rar文件了"></a>5.然后就可以解压自己的rar文件了</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//解压</span></span><br><span class="line">unrar x test.rar</span><br><span class="line"><span class="comment">//压缩</span></span><br><span class="line">rar a test.rar test/</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>不得不说，mac下的安全管理还是严格的</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/mac%E4%B8%8B%E9%85%8D%E7%BD%AErar%E4%B8%8Eunrar%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
+      <header class="article-header">
         
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-linux下查看编译的静态库和动态库是32位还是64位" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="linux下查看编译的静态库和动态库是32位还是64位"><a href="#linux下查看编译的静态库和动态库是32位还是64位" class="headerlink" title="linux下查看编译的静态库和动态库是32位还是64位"></a>linux下查看编译的静态库和动态库是32位还是64位</h1><h1 id="linux下查看编译的静态库和动态库是32位还是64位-1"><a href="#linux下查看编译的静态库和动态库是32位还是64位-1" class="headerlink" title="linux下查看编译的静态库和动态库是32位还是64位"></a>linux下查看编译的静态库和动态库是32位还是64位</h1><p>有时候可能会需要交叉编译，所以需要知道平台上编译出来的版本到底是64位还是32位</p>
-<h2 id="file指令查看动态库是32位还是64位"><a href="#file指令查看动态库是32位还是64位" class="headerlink" title="file指令查看动态库是32位还是64位"></a>file指令查看动态库是32位还是64位</h2><p>如图：file libcurl.so 查看当前编译的libcurl.so是32位还是64位的<br><img src="/assets/blogImg/file_so.jpg" alt="file_so.jpg"></p>
-<h2 id="objdump-a指令查看静态库是32位还是64位的"><a href="#objdump-a指令查看静态库是32位还是64位的" class="headerlink" title="objdump -a指令查看静态库是32位还是64位的"></a>objdump -a指令查看静态库是32位还是64位的</h2><p>如图：objdump -a libtest.a 查看当前编译的静态库libtest.a是32位还是64位的<br><img src="/assets/blogImg/objdump_a.jpg" alt="objdupm_a.jpg"></p>
-<h2 id="readelf-h指令查看静态库or动态库是32位or64位，及编译平台运行平台等信息"><a href="#readelf-h指令查看静态库or动态库是32位or64位，及编译平台运行平台等信息" class="headerlink" title="readelf -h指令查看静态库or动态库是32位or64位，及编译平台运行平台等信息"></a>readelf -h指令查看静态库or动态库是32位or64位，及编译平台运行平台等信息</h2><p>如图：readelf -h libssl.so 查看编译的动态库lib<br><img src="/assets/blogImg/readelf_h.JPG" alt="readelf_h.JPG"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/linux%E4%B8%8B%E6%9F%A5%E7%9C%8B%E7%BC%96%E8%AF%91%E7%9A%84%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93%E6%98%AF32%E4%BD%8D%E8%BF%98%E6%98%AF64%E4%BD%8D/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/29/windows%E4%B8%8B%E7%94%A8VisualStudio%E7%BC%96%E8%AF%91libiconv%E5%BA%93/">windows下用VisualStudio编译libiconv库</a>
+    </h1>
   
-    <article id="post-linux下安装tcpdump并用其抓包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+
+        
+        <a href="/2019/08/29/windows%E4%B8%8B%E7%94%A8VisualStudio%E7%BC%96%E8%AF%91libiconv%E5%BA%93/" class="archive-article-date">
+  	<time datetime="2019-08-29T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="linux下安装tcpdump并用其抓包"><a href="#linux下安装tcpdump并用其抓包" class="headerlink" title="linux下安装tcpdump并用其抓包"></a>linux下安装tcpdump并用其抓包</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>有时候需要分析网络协议，这时候抓包看看直接的数据，能够有助于对协议有一个直观的感受，在windows下，可以直接安装Wireshark就能轻松抓包分析了，但是在linux下，没有Wireshark，所以可以安装tcpdump，用tcpdump抓包分析</p>
-<h2 id="安装tcpdump"><a href="#安装tcpdump" class="headerlink" title="安装tcpdump"></a>安装tcpdump</h2><p>安装tcpdump有两种方式，一种是下载tcpdump源码，然后编译安装；另一种是直接用系统安装命令</p>
-<h3 id="下载源码安装tcpdump"><a href="#下载源码安装tcpdump" class="headerlink" title="下载源码安装tcpdump"></a>下载源码安装tcpdump</h3><p>这个可以参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/tic_yx/article/details/17012317">https://blog.csdn.net/tic_yx/article/details/17012317</a><br>这篇文章里记录的很详细<br>文章内容截图如下：<br><img src="/assets/blogImg/complie_tcpdump.jpg" alt="源码编译tcpdump"></p>
-<h3 id="直接用系统安装命令"><a href="#直接用系统安装命令" class="headerlink" title="直接用系统安装命令"></a>直接用系统安装命令</h3><p>在ubuntu下，可以直接使用sudo apt-get install tcpdump<br>如果这一步安装的时候有报错，可以更新一下下载源，国内清华的下载源还是很好用的</p>
-<h2 id="用tcpdump抓包"><a href="#用tcpdump抓包" class="headerlink" title="用tcpdump抓包"></a>用tcpdump抓包</h2><p>sudo tcpdump -i 网卡 -entXX<br><img src="/assets/blogImg/use_tcpdump.jpg" alt="使用tcpdump抓包"></p>
-<p>也可以把tcpdump抓到的数据保存到文件里<br>sudo tcpdump -i 网卡 -entXX -w 文件名.pcap<br><img src="/assets/blogImg/tcpdump_save_file.jpg" alt="tcpdump抓包后保存到文件里"><br>然后将pcap文件从linux里拷贝到windows下，用Wireshark分析数据</p>
+        <h1 id="windows下用VisualStudio编译libiconv库"><a href="#windows下用VisualStudio编译libiconv库" class="headerlink" title="windows下用VisualStudio编译libiconv库"></a>windows下用VisualStudio编译libiconv库</h1><h1 id="windows下用VisualStudio编译libiconv库-1"><a href="#windows下用VisualStudio编译libiconv库-1" class="headerlink" title="windows下用VisualStudio编译libiconv库"></a>windows下用VisualStudio编译libiconv库</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>由于在linux下使用libiconv库进行gbk32与utf-8转码，在移植到windows平台的时候，发现系统里是没有libiconv库，所以从网上找了一些资源和教程，最终发现了一个很给力的解决办法，因此来记录一下备份一下</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p><a target="_blank" rel="noopener" href="https://www.codeproject.com/Articles/302012/How-to-Build-libiconv-with-Microsoft-Visual-Studio">https://www.codeproject.com/Articles/302012/How-to-Build-libiconv-with-Microsoft-Visual-Studio</a></p>
+<p>该链接libiconv的版本：1.14版本<br>这个链接给出的解决方案很给力，大神给出了详细的修改源码的过程</p>
 
       
 
@@ -465,117 +554,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/linux%E4%B8%8B%E5%AE%89%E8%A3%85tcpdump%E5%B9%B6%E7%94%A8%E5%85%B6%E6%8A%93%E5%8C%85/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-map存放函数指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="map存放函数指针"><a href="#map存放函数指针" class="headerlink" title="map存放函数指针"></a>map存放函数指针</h1><h1 id="map里存放函数指针"><a href="#map里存放函数指针" class="headerlink" title="map里存放函数指针"></a>map里存放函数指针</h1><p>由于有时候，想把某一类功能的函数，存在一个map里，所以写了一个demo</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>源码如下（已本地运行通过）：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  main.cpp</span></span><br><span class="line"><span class="comment">//  mapfunc</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by 慕寒 on 2019/9/22.</span></span><br><span class="line"><span class="comment">//  Copyright © 2019 慕寒. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 将函数指针缓存在map里</span></span><br><span class="line"></span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;map&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span>* <span class="function"><span class="title">helloFuncOne</span>(<span class="params"></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello, World!\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> NULL;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">long <span class="function"><span class="title">helloFuncTwo</span>(<span class="params">long x, long y</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    long ret = <span class="number">0</span>;</span><br><span class="line">    ret = x + y;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;x + y = &quot;</span>&lt;&lt; ret &lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int <span class="function"><span class="title">main</span>(<span class="params">int argc, <span class="keyword">const</span> char * argv[]</span>)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 缓存函数名，函数指针在map里</span></span><br><span class="line">    map&lt;string, long&gt; func_name_ptr;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将函数指针缓存到map里</span></span><br><span class="line">    func_name_ptr[<span class="string">&quot;func1&quot;</span>] = (long)&amp;helloFuncOne;</span><br><span class="line">    func_name_ptr[<span class="string">&quot;func2&quot;</span>] = (long)&amp;helloFuncTwo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用函数指针func1</span></span><br><span class="line">    typedef <span class="keyword">void</span>* (*FUNC)();</span><br><span class="line">    long fptr_one = func_name_ptr[<span class="string">&quot;func1&quot;</span>];</span><br><span class="line">    <span class="keyword">if</span>(fptr_one != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;fptr_one \n&quot;</span>;</span><br><span class="line">        <span class="comment">//调用函数func1</span></span><br><span class="line">        ((FUNC)fptr_one)();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//调用函数指针func2</span></span><br><span class="line">    typedef long (*FUNCTWO)(long, long);</span><br><span class="line">    long fptr_two = func_name_ptr[<span class="string">&quot;func2&quot;</span>];</span><br><span class="line">    <span class="keyword">if</span>(fptr_two != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;fptr_two \n&quot;</span>;</span><br><span class="line">        <span class="comment">//调用函数func2</span></span><br><span class="line">        long two_ret = ((FUNCTWO)fptr_two)(<span class="number">3</span>, <span class="number">7</span>);</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;two_ret = &quot;</span>&lt;&lt;two_ret &lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>//PS: map的第二个参数为什么用了long型，而不是int型<br>//由于在XCode编译报错 Cast from pointer to smaller type ‘int’ loses information<br>//报错原因是：由于使用了强转将void<em>转为int，而在XCode上使用的为x64的编译，X64下的void</em>地址为8字节，而int为4字节，强转时会导致越界，故出现此错误。<br>源码运行后到结果如下：</p>
-<p><img src="/assets/blogImg/map_func.jpg" alt="map_func_exec"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>注意类型强制转换到时候，可能会有越界报错</p>
-<p>源码已同步到github上：<a target="_blank" rel="noopener" href="https://github.com/TreeAndFlower/map_func_ptr">https://github.com/TreeAndFlower/map_func_ptr</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/map%E5%AD%98%E6%94%BE%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mqtt连接时报错-8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="mqtt连接时报错-8"><a href="#mqtt连接时报错-8" class="headerlink" title="mqtt连接时报错-8"></a>mqtt连接时报错-8</h1><h1 id="mqtt连接时报错，错误码是-8"><a href="#mqtt连接时报错，错误码是-8" class="headerlink" title="mqtt连接时报错，错误码是-8"></a>mqtt连接时报错，错误码是-8</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>使用mqtt-c库，创建mqtt连接的时候报错，错误码是-8</p>
-<h2 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h2><p>根据头文件来看</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define MQTTASYNC_BAD_STRUCTURE -<span class="number">8</span></span><br></pre></td></tr></table></figure>
-<p>错误码是-8的时候，表示创建连接的mqtt的结构体是错误的</p>
-<p>经过排查之后，发现，是mqtt的库版本不对。<br>因为系统里同时安装了两个版本的mqtt的库，一个是最新的，一个是原本用的旧版本的，在编译的时候，用了最新的mqtt的版本编译。</p>
-<p>但是把程序给别人的时候，别人用的是旧版本的mqtt的动态库，所以当程序执行的时候，当创建连接时，会报错-8</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在多个人使用同一个第三方库的时候，一定一定要注意，版本的问题；要保证大家使用的是统一的版本号编译的第三方动态库！</p>
-<p>版本差异导致报错，这种问题真的很坑……</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/mqtt%E8%BF%9E%E6%8E%A5%E6%97%B6%E6%8A%A5%E9%94%99-8/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/08/29/windows%E4%B8%8B%E7%94%A8VisualStudio%E7%BC%96%E8%AF%91libiconv%E5%BA%93/">展开全文 >></a>
         </p>
       
 
@@ -607,6 +586,21 @@
   
     <article id="post-CMakeLists.txt学习记录1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/18/CMakeLists.txt%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/">CMakeLists.txt学习记录（一）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/18/CMakeLists.txt%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/" class="archive-article-date">
+  	<time datetime="2019-08-18T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -640,7 +634,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/CMakeLists.txt%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/08/18/CMakeLists.txt%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/">展开全文 >></a>
         </p>
       
 
@@ -670,30 +664,39 @@
 
 
   
-    <article id="post-centos或mac下使用locate指令时报错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-关于本次博客搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/13/%E5%85%B3%E4%BA%8E%E6%9C%AC%E6%AC%A1%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">关于本次博客搭建</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/13/%E5%85%B3%E4%BA%8E%E6%9C%AC%E6%AC%A1%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="archive-article-date">
+  	<time datetime="2019-08-13T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="centos或mac下使用locate指令时，报错-var-db-locate-database"><a href="#centos或mac下使用locate指令时，报错-var-db-locate-database" class="headerlink" title="centos或mac下使用locate指令时，报错(/var/db/locate.database)"></a>centos或mac下使用locate指令时，报错(/var/db/locate.database)</h1><p>centos或mac下使用locate指令时，出现报错信息The locate database (/var/db/locate.database)</p>
-<h2 id="在centos系统下，使用locate指令报错"><a href="#在centos系统下，使用locate指令报错" class="headerlink" title="在centos系统下，使用locate指令报错"></a>在centos系统下，使用locate指令报错</h2><p>使用locate指令时，出现报错信息’var/lib/mlocate/mlocate.db’:No such file or directory时，处理方案如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入以下指令即可</span></span><br><span class="line">updatedb</span><br><span class="line"><span class="comment">//需要等待一段时间，因为生成数据库需要一段时间</span></span><br></pre></td></tr></table></figure>
-
-<p>稍等一段时间之后，再输入locate指令，即可发现可以使用了</p>
-<h2 id="在mac系统下，使用locate指令报错"><a href="#在mac系统下，使用locate指令报错" class="headerlink" title="在mac系统下，使用locate指令报错"></a>在mac系统下，使用locate指令报错</h2><p>当在mac上使用locate指令时，报错如下：<br><img src="/assets/blogImg/locate_01.jpg" alt="使用locate指令时报错"></p>
-<p>解决方案如下：</p>
-<ol>
-<li>先根据刚才的提醒，输入sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist<br><img src="/assets/blogImg/locate_02.jpg" alt="根据提示，输入launchtcl指令"></li>
-</ol>
-<ol start="2">
-<li>然后，输入指令sudo /usr/libexec/locate.updatedb<br><img src="/assets/blogImg/locate_03.jpg" alt="生成数据库"></li>
-</ol>
-<p>输入上面这个指令后，会等待好久一段时间，要稍微等待一会儿</p>
-<ol start="3">
-<li>最后再次输入locate指令，发现locate指令已经生效啦<br><img src="/assets/blogImg/locate_04.jpg" alt="locate指令已经生效啦"></li>
-</ol>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>因为我之前经常在ubuntu下，都没有碰到过locate指令不好用的情况，最近需要在centos和mac下操作，忽然发现居然loacte指令使用失效，于是上网查找了解决办法，经过尝试了一些方案后，终于在centos和mac下可以使用locate指令了，因此做出了以上的总结～</p>
-<p>感谢网友们无私分享的解决方案～<br>参考的网友方案：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d8f4f9e4b58c">https://www.jianshu.com/p/d8f4f9e4b58c</a></p>
+        <h1 id="关于本次博客搭建"><a href="#关于本次博客搭建" class="headerlink" title="关于本次博客搭建"></a>关于本次博客搭建</h1><h1 id="记录一下本次搭建blog的过程"><a href="#记录一下本次搭建blog的过程" class="headerlink" title="记录一下本次搭建blog的过程"></a>记录一下本次搭建blog的过程</h1><p>因为感觉有博客就很有意思的亚子，所以这两天趁着台风天也没法出去玩，索性捣腾一下个人博客的搭建好了，本次只是记录了我这次搭建blog参考的视频教程，因为CodeSheep这位大佬的视频讲的真的好，mac系统下跟着他的视频一步一步走，就很顺理成章的搭建完成了呢～</p>
+<h2 id="本次mac搭建的时候，follow的视频教程"><a href="#本次mac搭建的时候，follow的视频教程" class="headerlink" title="本次mac搭建的时候，follow的视频教程"></a>本次mac搭建的时候，follow的视频教程</h2><p>视频链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av44544186/">https://www.bilibili.com/video/av44544186/</a></p>
+<p>只是有一点需要注意的：需要用root用户进行一系列操作<br>（一开始没有注意到，所以出来了一些报错信息，后来仔细一看，大佬用的是root用户进行的一系列操作）</p>
+<p>剩下的就是follow大佬的视频，一步一步慢慢走，看完这个视频，就可以在mac环境下搭建自己的个人博客啦～</p>
+<h2 id="在windows下搭建的时候，follow的网上的一个教程"><a href="#在windows下搭建的时候，follow的网上的一个教程" class="headerlink" title="在windows下搭建的时候，follow的网上的一个教程"></a>在windows下搭建的时候，follow的网上的一个教程</h2><p>教程链接：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/26625249">https://zhuanlan.zhihu.com/p/26625249</a></p>
+<p>因为还有一台windows的电脑，所以就也闲的无聊，就在windows上也搭建啦一下，其实和在mac上基本没有什么差别，只有2-3个极其个别的操作指令可能略有不同，不过follow这个教程一步步搭建，基本没有问题的～</p>
+<h2 id="关于主题，follow的开源项目"><a href="#关于主题，follow的开源项目" class="headerlink" title="关于主题，follow的开源项目"></a>关于主题，follow的开源项目</h2><p>因为搭建了blog之后，就找了一些主题，看了一些之后，还是选择了用CodeSheep大佬推荐的yilia主题，再次也非常感谢litten分享的开源主题</p>
+<p>主题链接：<a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia">https://github.com/litten/hexo-theme-yilia</a></p>
+<p>这套主题感觉也非常适合新手上手，操作非常友好，界面也很简洁，非常感谢大佬们的开源分享～</p>
+<h2 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h2><p>本次是记录在搭建个人博客的时候，查找到的特别好的学习资料，非常的感谢大佬们在网上的分享～</p>
+<p>台风天的时候，我们家猫咪在我的电脑旁边睡的安稳，我看着各个教程，写着算是第一篇不注水的博客，感觉也别有一番意思～</p>
+<p>blog里若有什么描述不当的bug，bug属于我，荣誉属于分享技术的大佬</p>
+<h2 id="睡觉毫无形象的小橘"><a href="#睡觉毫无形象的小橘" class="headerlink" title="睡觉毫无形象的小橘"></a>睡觉毫无形象的小橘</h2><p>小橘同学，你这睡姿真的毫无形象呀～<br><img src="/assets/blogImg/xiaoju_taifeng.jpg" alt="xiaoju_taifeng.jpg"></p>
 
       
 
@@ -706,7 +709,151 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/centos%E6%88%96mac%E4%B8%8B%E4%BD%BF%E7%94%A8locate%E6%8C%87%E4%BB%A4%E6%97%B6%E6%8A%A5%E9%94%99/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/08/13/%E5%85%B3%E4%BA%8E%E6%9C%AC%E6%AC%A1%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-在mac上配置dpkg" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/13/%E5%9C%A8mac%E4%B8%8A%E9%85%8D%E7%BD%AEdpkg/">在mac上配置dpkg</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/13/%E5%9C%A8mac%E4%B8%8A%E9%85%8D%E7%BD%AEdpkg/" class="archive-article-date">
+  	<time datetime="2019-08-13T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="在mac上配置dpkg"><a href="#在mac上配置dpkg" class="headerlink" title="在mac上配置dpkg"></a>在mac上配置dpkg</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在mac上安装dpkg，从网上找了一个安装教程，基本跟着教程走就顺利安装完成啦～</p>
+<p>安装教程链接：<a target="_blank" rel="noopener" href="https://mrmad.com.tw/macos-dpkg-deb">https://mrmad.com.tw/macos-dpkg-deb</a></p>
+<h2 id="根据教程走的时候，遇上的一些问题"><a href="#根据教程走的时候，遇上的一些问题" class="headerlink" title="根据教程走的时候，遇上的一些问题"></a>根据教程走的时候，遇上的一些问题</h2><p>安装MacPorts卡住了，”正在运行软件包脚本”<br>当在安装MacPort的时候卡住了很久的时候，可以先关闭正在安装的MacPort的进程，然后断开wifi，重新安装即可</p>
+<p>1.关闭正在安装的MacPort的进程</p>
+<p>在终端输入以下指令，查找MacPort安装进程的进程PID</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|grep install</span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/blogImg/close_mac_port.jpg" alt="close_mac_port.jpg"></p>
+<p>查找MacPort安装进程</p>
+<p>找到进程的PID以后，关掉它</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill PID进程号</span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/blogImg/close_port_pid.jpg" alt="close_port_pid.jpg"></p>
+<p>关闭安装进程</p>
+<p>2.关闭wifi</p>
+<p>3.重新安装下载的MacPort的pkg安装包即可安装成功</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/13/%E5%9C%A8mac%E4%B8%8A%E9%85%8D%E7%BD%AEdpkg/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-学习使用libxml2库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/13/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8libxml2%E5%BA%93/">学习使用libxml2库</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/13/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8libxml2%E5%BA%93/" class="archive-article-date">
+  	<time datetime="2019-08-13T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="学习使用libxml2库"><a href="#学习使用libxml2库" class="headerlink" title="学习使用libxml2库"></a>学习使用libxml2库</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>由于之前一直使用json进行信息的配置和传输，不过这次由于项目需要，所以接触了一下XML，经过一些选择，最终决定用libxml2库，进行一下学习记录</p>
+<p>libxml2库官方说明：<a target="_blank" rel="noopener" href="http://www.xmlsoft.org/index.html">http://www.xmlsoft.org/index.html</a></p>
+<h2 id="XML结构"><a href="#XML结构" class="headerlink" title="XML结构"></a>XML结构</h2><p>xml结构图<br><img src="/assets/blogImg/xmltype.jpg" alt="xmltype.jpg"></p>
+<p>图片来源于网上：<a target="_blank" rel="noopener" href="https://youtu.be/KeLiQXqVgMI">https://youtu.be/KeLiQXqVgMI</a> 该视频的截图</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/13/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8libxml2%E5%BA%93/">展开全文 >></a>
         </p>
       
 
