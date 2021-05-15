@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>TreeAndFlower</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="TreeAndFlower">
 <meta property="og:url" content="http://example.com/page/3/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="TreeAndFlower">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="TreeAndFlower" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -152,66 +152,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-linux下使用dl库统一API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="linux下使用dl库，统一API"><a href="#linux下使用dl库，统一API" class="headerlink" title="linux下使用dl库，统一API"></a>linux下使用dl库，统一API</h1><h1 id="linux下使用dl库，统一API-1"><a href="#linux下使用dl库，统一API-1" class="headerlink" title="linux下使用dl库，统一API"></a>linux下使用dl库，统一API</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>由于是统一API的前提下，做成了不同实现了这些API功能的动态链接库，然后根据配置文件等，动态的做出选择去加载这些动态库，并且是在linux下，所以最终选择了dl库</p>
-<h2 id="主要代码"><a href="#主要代码" class="headerlink" title="主要代码"></a>主要代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需要#include &lt;dlfcn.h&gt;</span></span><br><span class="line"></span><br><span class="line">short loadLibDemo::<span class="function"><span class="title">realLoadLib</span>(<span class="params"><span class="keyword">const</span> string&amp; libPath</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(libPath.length() &lt;= <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	libHandle = dlopen(libPath.c_str(), RTLD_GLOBAL | RTLD_NOW);</span><br><span class="line">	<span class="keyword">if</span>(NULL==libHandle)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;dlopen fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pOne = (PFUN_APIOne)dlsym(libHandle, <span class="string">&quot;one_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pOne)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIOne] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pTwo = (PFUN_APITwo)dlsym(libHandle, <span class="string">&quot;two_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pTwo)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APITwo] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pThree = (PFUN_APIThree)dlsym(libHandle, <span class="string">&quot;three_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pThree)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIThree] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pFour = (PFUN_APIFour)dlsym(libHandle, <span class="string">&quot;four_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pFour)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIFour] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pFive = (PFUN_APIFive)dlsym(libHandle, <span class="string">&quot;five_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pFive)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIFive] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pSix = (PFUN_APISix)dlsym(libHandle, <span class="string">&quot;six_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pSix)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APISix] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>完整代码已经放在了<a target="_blank" rel="noopener" href="https://github.com/TreeAndFlower/loadlibdemo-linux">https://github.com/TreeAndFlower/loadlibdemo-linux</a></p>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>主要是，要对导出的动态库里的API，记得“extern c”</p>
-<p>当没有extern c的时候，编译出来的动态库里API如下：</p>
-<p><img src="/assets/blogImg/wu_extern_c.jpg" alt="默认是g++编译，所以有前缀后缀"></p>
-<p>当extern c添加了以后，编译出来的动态库API如下：</p>
-<p><img src="/assets/blogImg/you_extern_c.jpg" alt="相当于选择了gcc编译，没有多余的Z11前缀v后缀等内容"></p>
-<p>另外需要注意的是</p>
-<p>这个示例代码，仅在linux平台下生效，因为链接的dl库，头文件是#include &lt;dlfcn.h&gt;，这些是linux平台的；<br>windows下用Kernel32.lib库，头文件是Windows.h；</p>
-<p>PS：<br>windows下的实现，博客链接为<a target="_blank" rel="noopener" href="https://treeandflower.github.io/2019/09/09/windows%E4%B8%8B%E4%BD%BF%E7%94%A8Kernel32-lib%E5%BA%93-%E7%BB%9F%E4%B8%80API/">https://treeandflower.github.io/2019/09/09/windows下使用Kernel32-lib库-统一API/</a></p>
-<p>如有描述不对之处，欢迎大家指正</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/linux%E4%B8%8B%E4%BD%BF%E7%94%A8dl%E5%BA%93%E7%BB%9F%E4%B8%80API/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-libcurl交叉编译" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -243,6 +183,66 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/05/15/libcurl%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-linux下使用dl库统一API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="linux下使用dl库，统一API"><a href="#linux下使用dl库，统一API" class="headerlink" title="linux下使用dl库，统一API"></a>linux下使用dl库，统一API</h1><h1 id="linux下使用dl库，统一API-1"><a href="#linux下使用dl库，统一API-1" class="headerlink" title="linux下使用dl库，统一API"></a>linux下使用dl库，统一API</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>由于是统一API的前提下，做成了不同实现了这些API功能的动态链接库，然后根据配置文件等，动态的做出选择去加载这些动态库，并且是在linux下，所以最终选择了dl库</p>
+<h2 id="主要代码"><a href="#主要代码" class="headerlink" title="主要代码"></a>主要代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需要#include &lt;dlfcn.h&gt;</span></span><br><span class="line"></span><br><span class="line">short loadLibDemo::<span class="function"><span class="title">realLoadLib</span>(<span class="params"><span class="keyword">const</span> string&amp; libPath</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(libPath.length() &lt;= <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	libHandle = dlopen(libPath.c_str(), RTLD_GLOBAL | RTLD_NOW);</span><br><span class="line">	<span class="keyword">if</span>(NULL==libHandle)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;dlopen fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pOne = (PFUN_APIOne)dlsym(libHandle, <span class="string">&quot;one_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pOne)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIOne] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pTwo = (PFUN_APITwo)dlsym(libHandle, <span class="string">&quot;two_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pTwo)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APITwo] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pThree = (PFUN_APIThree)dlsym(libHandle, <span class="string">&quot;three_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pThree)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIThree] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pFour = (PFUN_APIFour)dlsym(libHandle, <span class="string">&quot;four_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pFour)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIFour] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pFive = (PFUN_APIFive)dlsym(libHandle, <span class="string">&quot;five_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pFive)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIFive] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pSix = (PFUN_APISix)dlsym(libHandle, <span class="string">&quot;six_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pSix)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APISix] dlsym fail %s\n&quot;</span>,dlerror());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整代码已经放在了<a target="_blank" rel="noopener" href="https://github.com/TreeAndFlower/loadlibdemo-linux">https://github.com/TreeAndFlower/loadlibdemo-linux</a></p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>主要是，要对导出的动态库里的API，记得“extern c”</p>
+<p>当没有extern c的时候，编译出来的动态库里API如下：</p>
+<p><img src="/assets/blogImg/wu_extern_c.jpg" alt="默认是g++编译，所以有前缀后缀"></p>
+<p>当extern c添加了以后，编译出来的动态库API如下：</p>
+<p><img src="/assets/blogImg/you_extern_c.jpg" alt="相当于选择了gcc编译，没有多余的Z11前缀v后缀等内容"></p>
+<p>另外需要注意的是</p>
+<p>这个示例代码，仅在linux平台下生效，因为链接的dl库，头文件是#include &lt;dlfcn.h&gt;，这些是linux平台的；<br>windows下用Kernel32.lib库，头文件是Windows.h；</p>
+<p>PS：<br>windows下的实现，博客链接为<a target="_blank" rel="noopener" href="https://treeandflower.github.io/2019/09/09/windows%E4%B8%8B%E4%BD%BF%E7%94%A8Kernel32-lib%E5%BA%93-%E7%BB%9F%E4%B8%80API/">https://treeandflower.github.io/2019/09/09/windows下使用Kernel32-lib库-统一API/</a></p>
+<p>如有描述不对之处，欢迎大家指正</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/15/linux%E4%B8%8B%E4%BD%BF%E7%94%A8dl%E5%BA%93%E7%BB%9F%E4%B8%80API/">展开全文 >></a>
         </p>
       
 
@@ -333,17 +333,22 @@
 
 
   
-    <article id="post-linux下安装tcpdump并用其抓包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-mac下配置rar与unrar命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="linux下安装tcpdump并用其抓包"><a href="#linux下安装tcpdump并用其抓包" class="headerlink" title="linux下安装tcpdump并用其抓包"></a>linux下安装tcpdump并用其抓包</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>有时候需要分析网络协议，这时候抓包看看直接的数据，能够有助于对协议有一个直观的感受，在windows下，可以直接安装Wireshark就能轻松抓包分析了，但是在linux下，没有Wireshark，所以可以安装tcpdump，用tcpdump抓包分析</p>
-<h2 id="安装tcpdump"><a href="#安装tcpdump" class="headerlink" title="安装tcpdump"></a>安装tcpdump</h2><p>安装tcpdump有两种方式，一种是下载tcpdump源码，然后编译安装；另一种是直接用系统安装命令</p>
-<h3 id="下载源码安装tcpdump"><a href="#下载源码安装tcpdump" class="headerlink" title="下载源码安装tcpdump"></a>下载源码安装tcpdump</h3><p>这个可以参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/tic_yx/article/details/17012317">https://blog.csdn.net/tic_yx/article/details/17012317</a><br>这篇文章里记录的很详细<br>文章内容截图如下：<br><img src="/assets/blogImg/complie_tcpdump.jpg" alt="源码编译tcpdump"></p>
-<h3 id="直接用系统安装命令"><a href="#直接用系统安装命令" class="headerlink" title="直接用系统安装命令"></a>直接用系统安装命令</h3><p>在ubuntu下，可以直接使用sudo apt-get install tcpdump<br>如果这一步安装的时候有报错，可以更新一下下载源，国内清华的下载源还是很好用的</p>
-<h2 id="用tcpdump抓包"><a href="#用tcpdump抓包" class="headerlink" title="用tcpdump抓包"></a>用tcpdump抓包</h2><p>sudo tcpdump -i 网卡 -entXX<br><img src="/assets/blogImg/use_tcpdump.jpg" alt="使用tcpdump抓包"></p>
-<p>也可以把tcpdump抓到的数据保存到文件里<br>sudo tcpdump -i 网卡 -entXX -w 文件名.pcap<br><img src="/assets/blogImg/tcpdump_save_file.jpg" alt="tcpdump抓包后保存到文件里"><br>然后将pcap文件从linux里拷贝到windows下，用Wireshark分析数据</p>
+        <h1 id="mac下配置rar与unrar命令"><a href="#mac下配置rar与unrar命令" class="headerlink" title="mac下配置rar与unrar命令"></a>mac下配置rar与unrar命令</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>因为在mac下下载了rar文件，需要解压，然而mac上默认没有rar解压环境，于是配置了一下命令行rar/unrar环境</p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="1-下载RAR包"><a href="#1-下载RAR包" class="headerlink" title="1.下载RAR包"></a>1.下载RAR包</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下载地址如下</span></span><br><span class="line"><span class="attr">https</span>:<span class="comment">//www.rarlab.com/download.htm</span></span><br><span class="line"><span class="comment">//然后选择for macOS的更新包，比如</span></span><br><span class="line">RAR <span class="number">5.91</span> beta <span class="number">1</span> <span class="keyword">for</span> macOS(<span class="number">64</span> bit)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-解压下载后的更新包"><a href="#2-解压下载后的更新包" class="headerlink" title="2.解压下载后的更新包"></a>2.解压下载后的更新包</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//找到刚刚的更新包路径，然后cd到这个路径下，在命令行输入</span></span><br><span class="line">tar -zxvf rarosx-<span class="number">5.9</span>.1b1.tar</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-安装rar和unrar"><a href="#3-安装rar和unrar" class="headerlink" title="3.安装rar和unrar"></a>3.安装rar和unrar</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo install -c -o $USER rar /usr/local/bin</span><br><span class="line">sudo install -c -o $USER unrar /usr/local/bin</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-然后需要在安全与隐私里准许这个rar软件包"><a href="#4-然后需要在安全与隐私里准许这个rar软件包" class="headerlink" title="4.然后需要在安全与隐私里准许这个rar软件包"></a>4.然后需要在安全与隐私里准许这个rar软件包</h3><p>如下图所示，先点击解锁，然后输入密码，然后准许rar软件包<br>（因为我这边已经准许过了，所以这里现在是空，差不多就是这个位置）<br><img src="/assets/blogImg/rar_ok.jpg" alt="点击解锁，然后准许rar软件包"></p>
+<h3 id="5-然后就可以解压自己的rar文件了"><a href="#5-然后就可以解压自己的rar文件了" class="headerlink" title="5.然后就可以解压自己的rar文件了"></a>5.然后就可以解压自己的rar文件了</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//解压</span></span><br><span class="line">unrar x test.rar</span><br><span class="line"><span class="comment">//压缩</span></span><br><span class="line">rar a test.rar test/</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>不得不说，mac下的安全管理还是严格的</p>
 
       
 
@@ -356,7 +361,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/linux%E4%B8%8B%E5%AE%89%E8%A3%85tcpdump%E5%B9%B6%E7%94%A8%E5%85%B6%E6%8A%93%E5%8C%85/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/05/15/mac%E4%B8%8B%E9%85%8D%E7%BD%AErar%E4%B8%8Eunrar%E5%91%BD%E4%BB%A4/">展开全文 >></a>
         </p>
       
 
@@ -437,22 +442,17 @@
 
 
   
-    <article id="post-mac下配置rar与unrar命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-linux下安装tcpdump并用其抓包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="mac下配置rar与unrar命令"><a href="#mac下配置rar与unrar命令" class="headerlink" title="mac下配置rar与unrar命令"></a>mac下配置rar与unrar命令</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>因为在mac下下载了rar文件，需要解压，然而mac上默认没有rar解压环境，于是配置了一下命令行rar/unrar环境</p>
-<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="1-下载RAR包"><a href="#1-下载RAR包" class="headerlink" title="1.下载RAR包"></a>1.下载RAR包</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下载地址如下</span></span><br><span class="line"><span class="attr">https</span>:<span class="comment">//www.rarlab.com/download.htm</span></span><br><span class="line"><span class="comment">//然后选择for macOS的更新包，比如</span></span><br><span class="line">RAR <span class="number">5.91</span> beta <span class="number">1</span> <span class="keyword">for</span> macOS(<span class="number">64</span> bit)</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-解压下载后的更新包"><a href="#2-解压下载后的更新包" class="headerlink" title="2.解压下载后的更新包"></a>2.解压下载后的更新包</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//找到刚刚的更新包路径，然后cd到这个路径下，在命令行输入</span></span><br><span class="line">tar -zxvf rarosx-<span class="number">5.9</span>.1b1.tar</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-安装rar和unrar"><a href="#3-安装rar和unrar" class="headerlink" title="3.安装rar和unrar"></a>3.安装rar和unrar</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo install -c -o $USER rar /usr/local/bin</span><br><span class="line">sudo install -c -o $USER unrar /usr/local/bin</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-然后需要在安全与隐私里准许这个rar软件包"><a href="#4-然后需要在安全与隐私里准许这个rar软件包" class="headerlink" title="4.然后需要在安全与隐私里准许这个rar软件包"></a>4.然后需要在安全与隐私里准许这个rar软件包</h3><p>如下图所示，先点击解锁，然后输入密码，然后准许rar软件包<br>（因为我这边已经准许过了，所以这里现在是空，差不多就是这个位置）<br><img src="/assets/blogImg/rar_ok.jpg" alt="点击解锁，然后准许rar软件包"></p>
-<h3 id="5-然后就可以解压自己的rar文件了"><a href="#5-然后就可以解压自己的rar文件了" class="headerlink" title="5.然后就可以解压自己的rar文件了"></a>5.然后就可以解压自己的rar文件了</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//解压</span></span><br><span class="line">unrar x test.rar</span><br><span class="line"><span class="comment">//压缩</span></span><br><span class="line">rar a test.rar test/</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>不得不说，mac下的安全管理还是严格的</p>
+        <h1 id="linux下安装tcpdump并用其抓包"><a href="#linux下安装tcpdump并用其抓包" class="headerlink" title="linux下安装tcpdump并用其抓包"></a>linux下安装tcpdump并用其抓包</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>有时候需要分析网络协议，这时候抓包看看直接的数据，能够有助于对协议有一个直观的感受，在windows下，可以直接安装Wireshark就能轻松抓包分析了，但是在linux下，没有Wireshark，所以可以安装tcpdump，用tcpdump抓包分析</p>
+<h2 id="安装tcpdump"><a href="#安装tcpdump" class="headerlink" title="安装tcpdump"></a>安装tcpdump</h2><p>安装tcpdump有两种方式，一种是下载tcpdump源码，然后编译安装；另一种是直接用系统安装命令</p>
+<h3 id="下载源码安装tcpdump"><a href="#下载源码安装tcpdump" class="headerlink" title="下载源码安装tcpdump"></a>下载源码安装tcpdump</h3><p>这个可以参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/tic_yx/article/details/17012317">https://blog.csdn.net/tic_yx/article/details/17012317</a><br>这篇文章里记录的很详细<br>文章内容截图如下：<br><img src="/assets/blogImg/complie_tcpdump.jpg" alt="源码编译tcpdump"></p>
+<h3 id="直接用系统安装命令"><a href="#直接用系统安装命令" class="headerlink" title="直接用系统安装命令"></a>直接用系统安装命令</h3><p>在ubuntu下，可以直接使用sudo apt-get install tcpdump<br>如果这一步安装的时候有报错，可以更新一下下载源，国内清华的下载源还是很好用的</p>
+<h2 id="用tcpdump抓包"><a href="#用tcpdump抓包" class="headerlink" title="用tcpdump抓包"></a>用tcpdump抓包</h2><p>sudo tcpdump -i 网卡 -entXX<br><img src="/assets/blogImg/use_tcpdump.jpg" alt="使用tcpdump抓包"></p>
+<p>也可以把tcpdump抓到的数据保存到文件里<br>sudo tcpdump -i 网卡 -entXX -w 文件名.pcap<br><img src="/assets/blogImg/tcpdump_save_file.jpg" alt="tcpdump抓包后保存到文件里"><br>然后将pcap文件从linux里拷贝到windows下，用Wireshark分析数据</p>
 
       
 
@@ -465,7 +465,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/mac%E4%B8%8B%E9%85%8D%E7%BD%AErar%E4%B8%8Eunrar%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/05/15/linux%E4%B8%8B%E5%AE%89%E8%A3%85tcpdump%E5%B9%B6%E7%94%A8%E5%85%B6%E6%8A%93%E5%8C%85/">展开全文 >></a>
         </p>
       
 
@@ -605,6 +605,71 @@
 
 
   
+    <article id="post-CMakeLists.txt学习记录1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CMakeLists-txt学习记录（一）"><a href="#CMakeLists-txt学习记录（一）" class="headerlink" title="CMakeLists.txt学习记录（一）"></a>CMakeLists.txt学习记录（一）</h1><h2 id="CMakeLists-txt-学习"><a href="#CMakeLists-txt-学习" class="headerlink" title="CMakeLists.txt 学习"></a>CMakeLists.txt 学习</h2><p>参考资料来自于官方：<a target="_blank" rel="noopener" href="https://cmake.org/cmake-tutorial/">https://cmake.org/cmake-tutorial/</a></p>
+<h2 id="官方代码如下："><a href="#官方代码如下：" class="headerlink" title="官方代码如下："></a>官方代码如下：</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//官方demo，求一个数的开方</span></span><br><span class="line"><span class="comment">//tutorial.xxx</span></span><br><span class="line"><span class="comment">// A simple program that computes the square root of a number</span></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;math.h&gt;</span><br><span class="line">#include <span class="string">&quot;TutorialConfig.h&quot;</span></span><br><span class="line"> </span><br><span class="line">int main (int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (argc &lt; <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    fprintf(stdout,<span class="string">&quot;%s Version %d.%d\n&quot;</span>,</span><br><span class="line">            argv[<span class="number">0</span>],</span><br><span class="line">            Tutorial_VERSION_MAJOR,</span><br><span class="line">            Tutorial_VERSION_MINOR);</span><br><span class="line">    fprintf(stdout,<span class="string">&quot;Usage: %s number\n&quot;</span>,argv[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  double inputValue = atof(argv[<span class="number">1</span>]);</span><br><span class="line">  double outputValue = sqrt(inputValue);</span><br><span class="line">  fprintf(stdout,<span class="string">&quot;The square root of %g is %g\n&quot;</span>,</span><br><span class="line">          inputValue, outputValue);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于这个demo，我们如果想通过写CMakeLists.txt文件来编译它，并且，想要给这个执行文件加上版本信息，可以通过以下的选项设置</p>
+<h2 id="1-增加版本信息的配置文件TutorialConfig-h-in"><a href="#1-增加版本信息的配置文件TutorialConfig-h-in" class="headerlink" title="1. 增加版本信息的配置文件TutorialConfig.h.in"></a>1. 增加版本信息的配置文件TutorialConfig.h.in</h2><p>内容如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TutorialConfig.h.in</span></span><br><span class="line"><span class="comment">//官方源码如下：</span></span><br><span class="line"><span class="comment">// the configured options and settings for Tutorial</span></span><br><span class="line">#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@</span><br><span class="line">#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-根据tutorial-cxx指定的头文件TutorialConfig-h来看，我们要将生成的配置信息保存在这个头文件里，我们可以利用CMakeLists-txt给我们生成这个文件"><a href="#2-根据tutorial-cxx指定的头文件TutorialConfig-h来看，我们要将生成的配置信息保存在这个头文件里，我们可以利用CMakeLists-txt给我们生成这个文件" class="headerlink" title="2. 根据tutorial.cxx指定的头文件TutorialConfig.h来看，我们要将生成的配置信息保存在这个头文件里，我们可以利用CMakeLists.txt给我们生成这个文件"></a>2. 根据tutorial.cxx指定的头文件TutorialConfig.h来看，我们要将生成的配置信息保存在这个头文件里，我们可以利用CMakeLists.txt给我们生成这个文件</h2><h2 id="3-以下是CMakeLists-txt的内容"><a href="#3-以下是CMakeLists-txt的内容" class="headerlink" title="3. 以下是CMakeLists.txt的内容"></a>3. 以下是CMakeLists.txt的内容</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//CMakeLists.txt</span></span><br><span class="line"><span class="comment">//官方内容如下：</span></span><br><span class="line">cmake_minimum_required (VERSION <span class="number">2.6</span>)</span><br><span class="line">project (Tutorial)</span><br><span class="line"># The version number.</span><br><span class="line">set (Tutorial_VERSION_MAJOR <span class="number">1</span>)</span><br><span class="line">set (Tutorial_VERSION_MINOR <span class="number">0</span>)</span><br><span class="line"> </span><br><span class="line"># configure a header file to pass some <span class="keyword">of</span> the CMake settings</span><br><span class="line"># to the source code</span><br><span class="line">configure_file (</span><br><span class="line">  <span class="string">&quot;$&#123;PROJECT_SOURCE_DIR&#125;/TutorialConfig.h.in&quot;</span></span><br><span class="line">  <span class="string">&quot;$&#123;PROJECT_BINARY_DIR&#125;/TutorialConfig.h&quot;</span></span><br><span class="line">  )</span><br><span class="line"> </span><br><span class="line"># add the binary tree to the search path <span class="keyword">for</span> include files</span><br><span class="line"># so that we will find TutorialConfig.h</span><br><span class="line">include_directories(<span class="string">&quot;$&#123;PROJECT_BINARY_DIR&#125;&quot;</span>)</span><br><span class="line"> </span><br><span class="line"># add the executable</span><br><span class="line">add_executable(Tutorial tutorial.cxx)</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-接下来是跑一下官方的demo"><a href="#4-接下来是跑一下官方的demo" class="headerlink" title="4.接下来是跑一下官方的demo"></a>4.接下来是跑一下官方的demo</h2><p>根据官方教程搭建下来，目前，目录结构应该是这样的<br><img src="/assets/blogImg/cmake_1_01.jpg" alt="mulujiegou.jpg"></p>
+<p>然后cmake .编译一下，通过CMakeLists.txt生成TutorialConfig.h等后续依赖文件出来<br><img src="/assets/blogImg/cmake_1_02.jpg" alt="bianyi.jpg"></p>
+<p>浏览一下目录结构，可以看下，此时，目录结构应该是这样的<br><img src="/assets/blogImg/cmake_1_03.jpg" alt="bianyihoudemulu.jpg"></p>
+<p>开始make编译出最终生成的执行文件<br><img src="/assets/blogImg/cmake_1_04.jpg" alt="shengchengexe.jpg"></p>
+<p>执行一下，可以看版本信息</p>
+<p><img src="/assets/blogImg/cmake_1_05.jpg" alt="version.jpg"></p>
+<p>带参数的执行，可以看到，程序可以输出用户指定的数据的开方</p>
+<p><img src="/assets/blogImg/cmake_1_06.jpg" alt="result.jpg"></p>
+<p>由此，跟着官方走了一遍流程，实现了可以通过CMakeLists.txt指定程序的版本信息的程序<br>以上是本次follow官方demo的学习过程（一）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/15/CMakeLists.txt%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-centos或mac下使用locate指令时报错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -642,71 +707,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/05/15/centos%E6%88%96mac%E4%B8%8B%E4%BD%BF%E7%94%A8locate%E6%8C%87%E4%BB%A4%E6%97%B6%E6%8A%A5%E9%94%99/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CMakeLists.txt学习记录1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CMakeLists-txt学习记录（一）"><a href="#CMakeLists-txt学习记录（一）" class="headerlink" title="CMakeLists.txt学习记录（一）"></a>CMakeLists.txt学习记录（一）</h1><h2 id="CMakeLists-txt-学习"><a href="#CMakeLists-txt-学习" class="headerlink" title="CMakeLists.txt 学习"></a>CMakeLists.txt 学习</h2><p>参考资料来自于官方：<a target="_blank" rel="noopener" href="https://cmake.org/cmake-tutorial/">https://cmake.org/cmake-tutorial/</a></p>
-<h2 id="官方代码如下："><a href="#官方代码如下：" class="headerlink" title="官方代码如下："></a>官方代码如下：</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//官方demo，求一个数的开方</span></span><br><span class="line"><span class="comment">//tutorial.xxx</span></span><br><span class="line"><span class="comment">// A simple program that computes the square root of a number</span></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;math.h&gt;</span><br><span class="line">#include <span class="string">&quot;TutorialConfig.h&quot;</span></span><br><span class="line"> </span><br><span class="line">int main (int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (argc &lt; <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    fprintf(stdout,<span class="string">&quot;%s Version %d.%d\n&quot;</span>,</span><br><span class="line">            argv[<span class="number">0</span>],</span><br><span class="line">            Tutorial_VERSION_MAJOR,</span><br><span class="line">            Tutorial_VERSION_MINOR);</span><br><span class="line">    fprintf(stdout,<span class="string">&quot;Usage: %s number\n&quot;</span>,argv[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  double inputValue = atof(argv[<span class="number">1</span>]);</span><br><span class="line">  double outputValue = sqrt(inputValue);</span><br><span class="line">  fprintf(stdout,<span class="string">&quot;The square root of %g is %g\n&quot;</span>,</span><br><span class="line">          inputValue, outputValue);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于这个demo，我们如果想通过写CMakeLists.txt文件来编译它，并且，想要给这个执行文件加上版本信息，可以通过以下的选项设置</p>
-<h2 id="1-增加版本信息的配置文件TutorialConfig-h-in"><a href="#1-增加版本信息的配置文件TutorialConfig-h-in" class="headerlink" title="1. 增加版本信息的配置文件TutorialConfig.h.in"></a>1. 增加版本信息的配置文件TutorialConfig.h.in</h2><p>内容如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TutorialConfig.h.in</span></span><br><span class="line"><span class="comment">//官方源码如下：</span></span><br><span class="line"><span class="comment">// the configured options and settings for Tutorial</span></span><br><span class="line">#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@</span><br><span class="line">#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-根据tutorial-cxx指定的头文件TutorialConfig-h来看，我们要将生成的配置信息保存在这个头文件里，我们可以利用CMakeLists-txt给我们生成这个文件"><a href="#2-根据tutorial-cxx指定的头文件TutorialConfig-h来看，我们要将生成的配置信息保存在这个头文件里，我们可以利用CMakeLists-txt给我们生成这个文件" class="headerlink" title="2. 根据tutorial.cxx指定的头文件TutorialConfig.h来看，我们要将生成的配置信息保存在这个头文件里，我们可以利用CMakeLists.txt给我们生成这个文件"></a>2. 根据tutorial.cxx指定的头文件TutorialConfig.h来看，我们要将生成的配置信息保存在这个头文件里，我们可以利用CMakeLists.txt给我们生成这个文件</h2><h2 id="3-以下是CMakeLists-txt的内容"><a href="#3-以下是CMakeLists-txt的内容" class="headerlink" title="3. 以下是CMakeLists.txt的内容"></a>3. 以下是CMakeLists.txt的内容</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//CMakeLists.txt</span></span><br><span class="line"><span class="comment">//官方内容如下：</span></span><br><span class="line">cmake_minimum_required (VERSION <span class="number">2.6</span>)</span><br><span class="line">project (Tutorial)</span><br><span class="line"># The version number.</span><br><span class="line">set (Tutorial_VERSION_MAJOR <span class="number">1</span>)</span><br><span class="line">set (Tutorial_VERSION_MINOR <span class="number">0</span>)</span><br><span class="line"> </span><br><span class="line"># configure a header file to pass some <span class="keyword">of</span> the CMake settings</span><br><span class="line"># to the source code</span><br><span class="line">configure_file (</span><br><span class="line">  <span class="string">&quot;$&#123;PROJECT_SOURCE_DIR&#125;/TutorialConfig.h.in&quot;</span></span><br><span class="line">  <span class="string">&quot;$&#123;PROJECT_BINARY_DIR&#125;/TutorialConfig.h&quot;</span></span><br><span class="line">  )</span><br><span class="line"> </span><br><span class="line"># add the binary tree to the search path <span class="keyword">for</span> include files</span><br><span class="line"># so that we will find TutorialConfig.h</span><br><span class="line">include_directories(<span class="string">&quot;$&#123;PROJECT_BINARY_DIR&#125;&quot;</span>)</span><br><span class="line"> </span><br><span class="line"># add the executable</span><br><span class="line">add_executable(Tutorial tutorial.cxx)</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-接下来是跑一下官方的demo"><a href="#4-接下来是跑一下官方的demo" class="headerlink" title="4.接下来是跑一下官方的demo"></a>4.接下来是跑一下官方的demo</h2><p>根据官方教程搭建下来，目前，目录结构应该是这样的<br><img src="/assets/blogImg/cmake_1_01.jpg" alt="mulujiegou.jpg"></p>
-<p>然后cmake .编译一下，通过CMakeLists.txt生成TutorialConfig.h等后续依赖文件出来<br><img src="/assets/blogImg/cmake_1_02.jpg" alt="bianyi.jpg"></p>
-<p>浏览一下目录结构，可以看下，此时，目录结构应该是这样的<br><img src="/assets/blogImg/cmake_1_03.jpg" alt="bianyihoudemulu.jpg"></p>
-<p>开始make编译出最终生成的执行文件<br><img src="/assets/blogImg/cmake_1_04.jpg" alt="shengchengexe.jpg"></p>
-<p>执行一下，可以看版本信息</p>
-<p><img src="/assets/blogImg/cmake_1_05.jpg" alt="version.jpg"></p>
-<p>带参数的执行，可以看到，程序可以输出用户指定的数据的开方</p>
-<p><img src="/assets/blogImg/cmake_1_06.jpg" alt="result.jpg"></p>
-<p>由此，跟着官方走了一遍流程，实现了可以通过CMakeLists.txt指定程序的版本信息的程序<br>以上是本次follow官方demo的学习过程（一）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/CMakeLists.txt%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/">展开全文 >></a>
         </p>
       
 

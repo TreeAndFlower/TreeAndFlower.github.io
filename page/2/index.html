@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>TreeAndFlower</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="TreeAndFlower">
 <meta property="og:url" content="http://example.com/page/2/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="TreeAndFlower">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="TreeAndFlower" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -600,6 +600,68 @@
 
 
   
+    <article id="post-debian10系统原本为64位系统下如何配置32位编译and运行环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="debian10系统原本为64位系统，如何配置32位编译and运行环境"><a href="#debian10系统原本为64位系统，如何配置32位编译and运行环境" class="headerlink" title="debian10系统原本为64位系统，如何配置32位编译and运行环境"></a>debian10系统原本为64位系统，如何配置32位编译and运行环境</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>原本安装的是debian10的64位系统，但是因为有些第三方程序是32位的，需要在这个系统上编译运行，那么需要配置一下必要的环境</p>
+<h2 id="当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境"><a href="#当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境" class="headerlink" title="当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境"></a>当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境</h2><p>一般来说，编译32位程序时，如果出现以下报错,可以认为没有配置32位编译or运行环境</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error: bits/libc-header-start.h: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>运行32位程序时，如果出现以下报错，也可以认为没有配置32位编译or运行环境</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//明明有执行程序test（32位的），但是执行./test的时候却报错</span></span><br><span class="line">test： </span><br><span class="line">     no such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>出现以上两种情况的任何一个时，一般可以判断时由于64位debian系统下，没有配置32位程序的编译or运行环境，需要执行以下两个步骤</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="一、执行sudo-apt-get-install-gcc-multilib"><a href="#一、执行sudo-apt-get-install-gcc-multilib" class="headerlink" title="一、执行sudo apt-get install gcc-multilib"></a>一、执行sudo apt-get install gcc-multilib</h3><p>安装gcc-multilib</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装gcc-multilib</span></span><br><span class="line">sudo apt-get install gcc-multilib</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、执行sudo-apt-get-install-g-multilib"><a href="#二、执行sudo-apt-get-install-g-multilib" class="headerlink" title="二、执行sudo apt-get install g++-multilib"></a>二、执行sudo apt-get install g++-multilib</h3><p>安装g++-multilib</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装g++-multilib</span></span><br><span class="line">sudo apt-get install g++-multilib</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>因为从官网直接下载下来的debian10的64位安装镜像在安装完成后，原始的debian系统是不支持32位程序运行的，所以需要对环境进行配置，所以做个记录，免得下次忘记了</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/15/debian10%E7%B3%BB%E7%BB%9F%E5%8E%9F%E6%9C%AC%E4%B8%BA64%E4%BD%8D%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE32%E4%BD%8D%E7%BC%96%E8%AF%91and%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ifconfig指令配置网卡信息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -635,68 +697,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/05/15/ifconfig%E6%8C%87%E4%BB%A4%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1%E4%BF%A1%E6%81%AF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-debian10系统原本为64位系统下如何配置32位编译and运行环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="debian10系统原本为64位系统，如何配置32位编译and运行环境"><a href="#debian10系统原本为64位系统，如何配置32位编译and运行环境" class="headerlink" title="debian10系统原本为64位系统，如何配置32位编译and运行环境"></a>debian10系统原本为64位系统，如何配置32位编译and运行环境</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>原本安装的是debian10的64位系统，但是因为有些第三方程序是32位的，需要在这个系统上编译运行，那么需要配置一下必要的环境</p>
-<h2 id="当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境"><a href="#当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境" class="headerlink" title="当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境"></a>当32位程序放在debian64位系统里无法编译or运行时，如何判断是因为没有配置32位编译or运行环境</h2><p>一般来说，编译32位程序时，如果出现以下报错,可以认为没有配置32位编译or运行环境</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error: bits/libc-header-start.h: No such file or directory</span><br></pre></td></tr></table></figure>
-
-<p>运行32位程序时，如果出现以下报错，也可以认为没有配置32位编译or运行环境</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//明明有执行程序test（32位的），但是执行./test的时候却报错</span></span><br><span class="line">test： </span><br><span class="line">     no such file or directory</span><br></pre></td></tr></table></figure>
-
-<p>出现以上两种情况的任何一个时，一般可以判断时由于64位debian系统下，没有配置32位程序的编译or运行环境，需要执行以下两个步骤</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="一、执行sudo-apt-get-install-gcc-multilib"><a href="#一、执行sudo-apt-get-install-gcc-multilib" class="headerlink" title="一、执行sudo apt-get install gcc-multilib"></a>一、执行sudo apt-get install gcc-multilib</h3><p>安装gcc-multilib</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装gcc-multilib</span></span><br><span class="line">sudo apt-get install gcc-multilib</span><br></pre></td></tr></table></figure>
-
-<h3 id="二、执行sudo-apt-get-install-g-multilib"><a href="#二、执行sudo-apt-get-install-g-multilib" class="headerlink" title="二、执行sudo apt-get install g++-multilib"></a>二、执行sudo apt-get install g++-multilib</h3><p>安装g++-multilib</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装g++-multilib</span></span><br><span class="line">sudo apt-get install g++-multilib</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>因为从官网直接下载下来的debian10的64位安装镜像在安装完成后，原始的debian系统是不支持32位程序运行的，所以需要对环境进行配置，所以做个记录，免得下次忘记了</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/15/debian10%E7%B3%BB%E7%BB%9F%E5%8E%9F%E6%9C%AC%E4%B8%BA64%E4%BD%8D%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE32%E4%BD%8D%E7%BC%96%E8%AF%91and%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/">展开全文 >></a>
         </p>
       
 
