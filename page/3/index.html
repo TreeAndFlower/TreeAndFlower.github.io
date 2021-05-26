@@ -57,7 +57,7 @@
 	        
 				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
 	        
-			总文章数 33
+			总文章数 35
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -152,6 +152,153 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-windows下使用Kernel32.lib库,统一API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/09/windows%E4%B8%8B%E4%BD%BF%E7%94%A8Kernel32.lib%E5%BA%93,%E7%BB%9F%E4%B8%80API/">windows下使用Kernel32.lib库,统一API</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/09/windows%E4%B8%8B%E4%BD%BF%E7%94%A8Kernel32.lib%E5%BA%93,%E7%BB%9F%E4%B8%80API/" class="archive-article-date">
+  	<time datetime="2019-09-09T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="windows下使用Kernel32-lib库-统一API"><a href="#windows下使用Kernel32-lib库-统一API" class="headerlink" title="windows下使用Kernel32.lib库,统一API"></a>windows下使用Kernel32.lib库,统一API</h1><h1 id="windows下使用Kernel32-lib库-统一API-1"><a href="#windows下使用Kernel32-lib库-统一API-1" class="headerlink" title="windows下使用Kernel32.lib库,统一API"></a>windows下使用Kernel32.lib库,统一API</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>由于是统一API的前提下，做成了不同实现了这些API功能的动态链接库，然后根据需要，动态的做出选择去加载这些动态库，并且是在windows下，所以最终用Kernel32.lib库</p>
+<h2 id="要注意接口导出"><a href="#要注意接口导出" class="headerlink" title="要注意接口导出"></a>要注意接口导出</h2><p>头文件如下：（要注意将接口导出）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//导出接口</span></span><br><span class="line">#ifdef DLLLIB </span><br><span class="line">#define DLLLIB _declspec(dllexport)</span><br><span class="line">#<span class="keyword">else</span></span><br><span class="line">#define DLLLIB _declspec(dllimport)</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">extern <span class="string">&quot;C&quot;</span>&#123;</span><br><span class="line">	DLLLIB short one_fun_api(<span class="keyword">const</span> string&amp;);</span><br><span class="line"></span><br><span class="line">	DLLLIB short two_fun_api(<span class="keyword">const</span> int&amp;);</span><br><span class="line"></span><br><span class="line">	DLLLIB short three_fun_api(<span class="keyword">const</span> string&amp;);</span><br><span class="line"></span><br><span class="line">	DLLLIB short four_fun_api(<span class="keyword">const</span> string&amp;);</span><br><span class="line"></span><br><span class="line">	DLLLIB bool  five_fun_api();</span><br><span class="line"></span><br><span class="line">	DLLLIB bool  six_fun_api();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要代码如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">short loadLibDemo::<span class="function"><span class="title">realLoadLib</span>(<span class="params"><span class="keyword">const</span> string&amp; libPath</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(libPath.length() &lt;= <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	libHandle = LoadLibrary(libPath.c_str());</span><br><span class="line">	<span class="keyword">if</span>(NULL==libHandle)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;dlopen fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pOne = (PFUN_APIOne)GetProcAddress(libHandle, <span class="string">&quot;one_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pOne)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIOne] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pTwo = (PFUN_APITwo)GetProcAddress(libHandle, <span class="string">&quot;two_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pTwo)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APITwo] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pThree = (PFUN_APIThree)GetProcAddress(libHandle, <span class="string">&quot;three_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pThree)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIThree] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pFour = (PFUN_APIFour)GetProcAddress(libHandle, <span class="string">&quot;four_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pFour)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIFour] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pFive = (PFUN_APIFive)GetProcAddress(libHandle, <span class="string">&quot;five_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pFive)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APIFive] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pSix = (PFUN_APISix)GetProcAddress(libHandle, <span class="string">&quot;six_fun_api&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(NULL == pSix)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;[PFUN_APISix] dlsym fail %s\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整代码已经放在了<a target="_blank" rel="noopener" href="https://github.com/TreeAndFlower/loadlibdemo-windows">https://github.com/TreeAndFlower/loadlibdemo-windows</a></p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>要记得导出API接口！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">如果没有导出接口，可能会报错，报错信息如下：</span><br><span class="line"></span><br><span class="line">GetProcAddress 出错，返回NULL(<span class="number">127</span>)</span><br><span class="line"></span><br><span class="line">这个错误原因，就是由于忘记了没有导出dll库的对外接口函数，</span><br><span class="line">是忘记了用 extern <span class="string">&quot;C&quot;</span> __declspec(dllexport) ，需要将接口导出，GetProcAddress才可以使用这些接口函数</span><br></pre></td></tr></table></figure>
+
+<p>windows下用Kernel32.lib库，头文件是Windows.h；</p>
+<p>PS：</p>
+<p>另外，linux版本的blog在这里：<a target="_blank" rel="noopener" href="https://treeandflower.github.io/2019/09/01/linux%E4%B8%8B%E4%BD%BF%E7%94%A8dl%E5%BA%93%EF%BC%8C%E7%BB%9F%E4%B8%80API/">https://treeandflower.github.io/2019/09/01/linux下使用dl库，统一API/</a></p>
+<p>如有描述不对之处，欢迎大家指正</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/09/windows%E4%B8%8B%E4%BD%BF%E7%94%A8Kernel32.lib%E5%BA%93,%E7%BB%9F%E4%B8%80API/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mqtt连接时报错-8" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/05/mqtt%E8%BF%9E%E6%8E%A5%E6%97%B6%E6%8A%A5%E9%94%99-8/">mqtt连接时报错-8</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/05/mqtt%E8%BF%9E%E6%8E%A5%E6%97%B6%E6%8A%A5%E9%94%99-8/" class="archive-article-date">
+  	<time datetime="2019-09-05T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="mqtt连接时报错-8"><a href="#mqtt连接时报错-8" class="headerlink" title="mqtt连接时报错-8"></a>mqtt连接时报错-8</h1><h1 id="mqtt连接时报错，错误码是-8"><a href="#mqtt连接时报错，错误码是-8" class="headerlink" title="mqtt连接时报错，错误码是-8"></a>mqtt连接时报错，错误码是-8</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>使用mqtt-c库，创建mqtt连接的时候报错，错误码是-8</p>
+<h2 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h2><p>根据头文件来看</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define MQTTASYNC_BAD_STRUCTURE -<span class="number">8</span></span><br></pre></td></tr></table></figure>
+<p>错误码是-8的时候，表示创建连接的mqtt的结构体是错误的</p>
+<p>经过排查之后，发现，是mqtt的库版本不对。<br>因为系统里同时安装了两个版本的mqtt的库，一个是最新的，一个是原本用的旧版本的，在编译的时候，用了最新的mqtt的版本编译。</p>
+<p>但是把程序给别人的时候，别人用的是旧版本的mqtt的动态库，所以当程序执行的时候，当创建连接时，会报错-8</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在多个人使用同一个第三方库的时候，一定一定要注意，版本的问题；要保证大家使用的是统一的版本号编译的第三方动态库！</p>
+<p>版本差异导致报错，这种问题真的很坑……</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/05/mqtt%E8%BF%9E%E6%8E%A5%E6%97%B6%E6%8A%A5%E9%94%99-8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-windows下命令行查看进程号" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -711,150 +858,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/08/13/%E5%85%B3%E4%BA%8E%E6%9C%AC%E6%AC%A1%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-在mac上配置dpkg" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/13/%E5%9C%A8mac%E4%B8%8A%E9%85%8D%E7%BD%AEdpkg/">在mac上配置dpkg</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/13/%E5%9C%A8mac%E4%B8%8A%E9%85%8D%E7%BD%AEdpkg/" class="archive-article-date">
-  	<time datetime="2019-08-13T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="在mac上配置dpkg"><a href="#在mac上配置dpkg" class="headerlink" title="在mac上配置dpkg"></a>在mac上配置dpkg</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在mac上安装dpkg，从网上找了一个安装教程，基本跟着教程走就顺利安装完成啦～</p>
-<p>安装教程链接：<a target="_blank" rel="noopener" href="https://mrmad.com.tw/macos-dpkg-deb">https://mrmad.com.tw/macos-dpkg-deb</a></p>
-<h2 id="根据教程走的时候，遇上的一些问题"><a href="#根据教程走的时候，遇上的一些问题" class="headerlink" title="根据教程走的时候，遇上的一些问题"></a>根据教程走的时候，遇上的一些问题</h2><p>安装MacPorts卡住了，”正在运行软件包脚本”<br>当在安装MacPort的时候卡住了很久的时候，可以先关闭正在安装的MacPort的进程，然后断开wifi，重新安装即可</p>
-<p>1.关闭正在安装的MacPort的进程</p>
-<p>在终端输入以下指令，查找MacPort安装进程的进程PID</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|grep install</span><br></pre></td></tr></table></figure>
-
-<p><img src="/assets/blogImg/close_mac_port.jpg" alt="close_mac_port.jpg"></p>
-<p>查找MacPort安装进程</p>
-<p>找到进程的PID以后，关掉它</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill PID进程号</span><br></pre></td></tr></table></figure>
-
-<p><img src="/assets/blogImg/close_port_pid.jpg" alt="close_port_pid.jpg"></p>
-<p>关闭安装进程</p>
-<p>2.关闭wifi</p>
-<p>3.重新安装下载的MacPort的pkg安装包即可安装成功</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/13/%E5%9C%A8mac%E4%B8%8A%E9%85%8D%E7%BD%AEdpkg/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-学习使用libxml2库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/13/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8libxml2%E5%BA%93/">学习使用libxml2库</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/13/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8libxml2%E5%BA%93/" class="archive-article-date">
-  	<time datetime="2019-08-13T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="学习使用libxml2库"><a href="#学习使用libxml2库" class="headerlink" title="学习使用libxml2库"></a>学习使用libxml2库</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>由于之前一直使用json进行信息的配置和传输，不过这次由于项目需要，所以接触了一下XML，经过一些选择，最终决定用libxml2库，进行一下学习记录</p>
-<p>libxml2库官方说明：<a target="_blank" rel="noopener" href="http://www.xmlsoft.org/index.html">http://www.xmlsoft.org/index.html</a></p>
-<h2 id="XML结构"><a href="#XML结构" class="headerlink" title="XML结构"></a>XML结构</h2><p>xml结构图<br><img src="/assets/blogImg/xmltype.jpg" alt="xmltype.jpg"></p>
-<p>图片来源于网上：<a target="_blank" rel="noopener" href="https://youtu.be/KeLiQXqVgMI">https://youtu.be/KeLiQXqVgMI</a> 该视频的截图</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/13/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8libxml2%E5%BA%93/">展开全文 >></a>
         </p>
       
 

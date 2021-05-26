@@ -57,7 +57,7 @@
 	        
 				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
 	        
-			总文章数 33
+			总文章数 35
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -152,6 +152,150 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-在mac上配置dpkg" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/13/%E5%9C%A8mac%E4%B8%8A%E9%85%8D%E7%BD%AEdpkg/">在mac上配置dpkg</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/13/%E5%9C%A8mac%E4%B8%8A%E9%85%8D%E7%BD%AEdpkg/" class="archive-article-date">
+  	<time datetime="2019-08-13T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="在mac上配置dpkg"><a href="#在mac上配置dpkg" class="headerlink" title="在mac上配置dpkg"></a>在mac上配置dpkg</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在mac上安装dpkg，从网上找了一个安装教程，基本跟着教程走就顺利安装完成啦～</p>
+<p>安装教程链接：<a target="_blank" rel="noopener" href="https://mrmad.com.tw/macos-dpkg-deb">https://mrmad.com.tw/macos-dpkg-deb</a></p>
+<h2 id="根据教程走的时候，遇上的一些问题"><a href="#根据教程走的时候，遇上的一些问题" class="headerlink" title="根据教程走的时候，遇上的一些问题"></a>根据教程走的时候，遇上的一些问题</h2><p>安装MacPorts卡住了，”正在运行软件包脚本”<br>当在安装MacPort的时候卡住了很久的时候，可以先关闭正在安装的MacPort的进程，然后断开wifi，重新安装即可</p>
+<p>1.关闭正在安装的MacPort的进程</p>
+<p>在终端输入以下指令，查找MacPort安装进程的进程PID</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux|grep install</span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/blogImg/close_mac_port.jpg" alt="close_mac_port.jpg"></p>
+<p>查找MacPort安装进程</p>
+<p>找到进程的PID以后，关掉它</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kill PID进程号</span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/blogImg/close_port_pid.jpg" alt="close_port_pid.jpg"></p>
+<p>关闭安装进程</p>
+<p>2.关闭wifi</p>
+<p>3.重新安装下载的MacPort的pkg安装包即可安装成功</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/13/%E5%9C%A8mac%E4%B8%8A%E9%85%8D%E7%BD%AEdpkg/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-学习使用libxml2库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/13/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8libxml2%E5%BA%93/">学习使用libxml2库</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/13/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8libxml2%E5%BA%93/" class="archive-article-date">
+  	<time datetime="2019-08-13T03:21:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="学习使用libxml2库"><a href="#学习使用libxml2库" class="headerlink" title="学习使用libxml2库"></a>学习使用libxml2库</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>由于之前一直使用json进行信息的配置和传输，不过这次由于项目需要，所以接触了一下XML，经过一些选择，最终决定用libxml2库，进行一下学习记录</p>
+<p>libxml2库官方说明：<a target="_blank" rel="noopener" href="http://www.xmlsoft.org/index.html">http://www.xmlsoft.org/index.html</a></p>
+<h2 id="XML结构"><a href="#XML结构" class="headerlink" title="XML结构"></a>XML结构</h2><p>xml结构图<br><img src="/assets/blogImg/xmltype.jpg" alt="xmltype.jpg"></p>
+<p>图片来源于网上：<a target="_blank" rel="noopener" href="https://youtu.be/KeLiQXqVgMI">https://youtu.be/KeLiQXqVgMI</a> 该视频的截图</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/13/%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8libxml2%E5%BA%93/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-centos或mac下使用locate指令时报错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
