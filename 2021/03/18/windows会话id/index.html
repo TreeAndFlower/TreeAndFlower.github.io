@@ -15,12 +15,12 @@
 <meta property="og:site_name" content="TreeAndFlower">
 <meta property="og:description" content="windows会话id–穿透session隔离背景在做项目的过程中，遇上的问题，记录一下。有一个程序getCode.exe需要开机自启动，这个程序是有一些用户交互的。 一开始的时候，我这边直接使用nssm创建服务，开机自启动这个服务，拉起来getCode.exe，但是发现，getCode.exe开机自启动之后，居然对用户的输入毫无反应；但是如果是电脑开机之后，手动启动getCode.exe程序，就">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/asserts/blogImg/look_sid.JPG">
+<meta property="og:image" content="http://example.com/assets/blogImg/look_sid.JPG">
 <meta property="article:published_time" content="2021-03-18T00:11:39.000Z">
-<meta property="article:modified_time" content="2021-05-26T00:29:27.312Z">
+<meta property="article:modified_time" content="2021-05-26T00:33:39.148Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/asserts/blogImg/look_sid.JPG">
+<meta name="twitter:image" content="http://example.com/assets/blogImg/look_sid.JPG">
   
     <link rel="alternative" href="/atom.xml" title="TreeAndFlower" type="application/atom+xml">
   
@@ -182,7 +182,7 @@
 <p>于是我们需要再写一个程序setExeSID.exe，这个setExeSID.exe主要负责的就是以指定的会话ID来启动getCode.exe程序，然后将setExeSID.exe通过nssm创建服务开机自启动，当服务开机自启后，拉起来setExeSID.exe，此时setExeSID.exe进程的SID为0，然后setExeSID.exe这个进程再指定以SID为1启动getCode.exe，这样的话，getCode.exe既实现了开机自启动，又实现了开机启动后SID是1（和当前登录的用户的SID）保持一致，可以和用户有输入输出的交互。</p>
 <h2 id="会话id"><a href="#会话id" class="headerlink" title="会话id"></a>会话id</h2><p>简单的说，用户登陆到windows系统之后，不管该用户是本地登陆的，还是远程登陆，系统都会为这个用户分配一个新的会话ID(SID)。也就是说会话与用户的登录是相关连的，没有用户登录就不存在会话。因此，会话的含义是指用户登录之后的一种运行的环境。</p>
 <h3 id="1-查看会话id"><a href="#1-查看会话id" class="headerlink" title="1.查看会话id"></a>1.查看会话id</h3><p>打开“任务管理器”–》“查看”–》“选择列”–》“会话ID”前的方框打钩，即可在任务管理器查看到每个进程的会话ID</p>
-<p><img src="/asserts/blogImg/look_sid.JPG" alt="look_sid.JPG"></p>
+<p><img src="/assets/blogImg/look_sid.JPG" alt="look_sid.JPG"></p>
 <h3 id="2-通过代码指定SID"><a href="#2-通过代码指定SID" class="headerlink" title="2.通过代码指定SID"></a>2.通过代码指定SID</h3><p>主要使用到的函数如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">GetCurrentProcess函数返回当前进程的伪句柄。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">OpenProcessToken功能打开与进程关联的访问令牌。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">在使用某些Windows API的时候需要提升进程的默认权限，在这种情况下，我们需要使用到一组Windows API提升进程权限。需要的函数有：</span><br><span class="line"><span class="number">1.</span>OpenProcessToken</span><br><span class="line"><span class="number">2.</span>LookupPrivilegeValue</span><br><span class="line"><span class="number">3.</span>AdjustTokenPrivileges</span><br><span class="line">使用这组函数提升权限的前提是进程具备该权限，只是访问令牌中没有启用该权限。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">WTSEnumerateSessions 枚举会话ID</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CreateEnvironmentBlock函数，检索指定用户的环境变量</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CreateProcessAsUser函数创建一个新进程及其主线程。然后，新进程执行指定的可执行文件。CreateProcessAsUser功能类似于CreateProcess功能，但新进程在由【hToken】参数表示的用户的安全上下文中运行。默认情况下，新进程是非交互式的，即它运行在不可见的桌面上，无法接收用户输入。此外，默认情况下，新进程继承调用进程的环境，而不是与指定用户关联的环境。</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
